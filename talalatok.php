@@ -1,4 +1,5 @@
 <?php
+session_name("video");
 include ("dao.php");
 
 $stmt = oci_parse($conn, "Select cim from videok");

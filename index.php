@@ -1,7 +1,6 @@
 <?php
 session_name("video");
     include('functions.php');
-    include('header.php');
 
 if(isset($_POST["login_button"])) {
     $username = $_POST["uname"];
@@ -13,7 +12,7 @@ if(isset($_POST["login_button"])) {
 
     if($rows = oci_fetch_array($stmt)){
         $_SESSION["user"] = (array)$rows;
-        header("Location: user.php?id=" . $rows["FELHASZNALONEV"]);
+        header("Location: user.php?id=".$username);
         exit();
     }else{
         echo "Hibás felhasználónév vagy jelszó!";
@@ -46,6 +45,13 @@ if(isset($_POST["registration"])){
 
     }
 }
+
+if(isset($_SESSION["uname"])){
+    header("Location: Location: user.php?id=".$username);
+    exit();
+}
+
+include('header.php');
 ?>
 <script>
     function expand(x){
