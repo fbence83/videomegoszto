@@ -25,7 +25,39 @@ if(isset($_POST["upload"])){
         $stmt = oci_parse($conn, $q);
         oci_execute($stmt);
     }
+
 }
+
+$categories = array();
+$q = "SELECT KATEGORIA FROM VIDEOK";
+$stmt = oci_parse($conn, $q);
+oci_execute($stmt);
+
+$i = 0;
+while($rows = oci_fetch_assoc($stmt)){
+    $categories[$i] = $rows["KATEGORIA"];
+    $i++;
+}
+
+$i = 1;
+$categoryLength = 0;
+foreach ($categories as $category){
+    $categoryLength++;
+}
+
+$j = 1;
+$newarray = array();
+$newarray[0] = $categories[0];
+
+//itt hagytam abba
+    while($i <= $categoryLength) {
+        if ($newarray[0] != $categories[$i]) {
+            $newarray[$j] = $categories[$i];
+            $j++;
+        }
+        $i++;
+    }
+    $i = 0;
 
 ?>
 
@@ -34,7 +66,7 @@ if(isset($_POST["upload"])){
         <?php include ("menu.php"); ?>
         <div class="main">
             <div class ="felhasz">
-                <h2><?php echo $nev; ?> </h2>
+                <h2><?php echo $nev; var_dump($categories); ?> </h2>
                 <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
             </div>
             <div class="feltöltés">
@@ -43,7 +75,11 @@ if(isset($_POST["upload"])){
                     <table>
                         <tr><td><label for="link">Link:</label><input type="text" id="link" name="link"/></td></tr>
                         <tr><td><label for="cim">Cím:</label><input type="text" id="cim" name="cim"/></td></tr>
-                        <tr><td><label for="kategoria">Kategória:</label><input type="text" id="kategoria" name="kategoria"/></td></tr>
+                        <tr><td><label for="kategoria">Kategória:</label><select id="kategoria" name="kategoria">
+                                    <?php foreach ($categories as $one){ ?>
+                                        <option value="<?php echo $one; ?>"><?php echo $one; ?></option>
+                                    <?php } ?>
+                                </select></td></tr>
                         <tr><td><button type="submit" name="upload">Feltöltés</button></td></tr>
                     </table>
                 </form>
