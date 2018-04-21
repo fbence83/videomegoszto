@@ -1,62 +1,29 @@
-
-<html>
-<head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel=stylesheet type="text/css" href="videos.css" />
-	<title>Videomegoszto</title>
-</head>
-<body>
-<?php 
-$tns = "
-(DESCRIPTION =
-    (ADDRESS_LIST =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-    )
-    (CONNECT_DATA =
-      (SID = xe)
-    )
-  )";
- 
- 
-$conn = oci_connect('system', 'root', $tns,'UTF8');
+<?php
 
 if(!isset($_GET['id'])){
-	header('location:megoszt.php');
-}
-else if (isset($_GET['id'])) {
+	header('Location: index.php');
+}else if (isset($_GET['id'])) {
 	echo "Link: " .$_GET['id']. "<br>ˇ";
 }
 include('functions.php');
-	
+include('header.php');
 ?>
-<?php 
-	include('header.php');
-?>
+    <script>
+        function novel(){
+            var x = document.getElementById('tobb').innerHTML;
+            if (x == 'Több'){
+                document.getElementById('01').style.height = '318%';
+                document.getElementById('tobb').innerHTML = 'Vissza';
+            }
+            else {
+                document.getElementById('01').style.height = '136%';
+                document.getElementById('tobb').innerHTML = 'Több';
+            }
+        }
+    </script>
 	
 	<div class="oszlopok">
-		
-		<div class= "side-menubar">
-		<div class="side-menubar1">
-		<p>Listák</p>
-		<a href="#">Felkapott</a>
-		<a href="#">Előzmények</a>
-		<a href="#">Listák</a>
-		</div>
-		<hr>
-		<div class="side-menubar1">
-		<p>Kategóriák</p>
-				<div class="side-menubar2">
-				<?php
-				$stmt = oci_parse($conn,"Select distinct kategoria from videok");
-				oci_execute($stmt);
-				
-				while ($row = oci_fetch_assoc($stmt)) {?>
-				<a href="lists.php?cat=<?php echo $row["KATEGORIA"] ?> "> <?php echo $row["KATEGORIA"] ?></a>
-				
-				<?php } ?>
-			</div>
-		</div>
-		</div>
+        <?php include ("menu.php"); ?>
 		<div class="main">
 			<div class ="videonak">
 			<?php
@@ -133,19 +100,3 @@ include('functions.php');
 	<?php 
 	include('footer.php');
 	?>
-</body>
-<script>
-function novel(){
-	var x = document.getElementById('tobb').innerHTML;
-	if (x == 'Több'){
-		document.getElementById('01').style.height = '318%';
-		document.getElementById('tobb').innerHTML = 'Vissza';
-	}
-	else {
-		document.getElementById('01').style.height = '136%';
-		document.getElementById('tobb').innerHTML = 'Több';
-	}
-}
-</script>
-
-</html>

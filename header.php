@@ -1,13 +1,19 @@
 <DOCTYPE! html>
 <html>
 <head>
-<link rel=stylesheet type="text/css" href="navbars.css" />
+    <link rel=stylesheet type="text/css" href="navbars.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel=stylesheet type="text/css" href="megoszt.css" />
+    <link rel=stylesheet type="text/css" href="lists.css" />
+    <link rel=stylesheet type="text/css" href="videos.css" />
+    <link rel=stylesheet type="text/css" href="user.css" />
+    <title>Videomegoszto</title>
 </head>
 <body>
 <div class="homepage-header">
 		
 		<div class="logo">
-		<a href ="megoszt.php" >
+		<a href ="index.php" >
 		<img src="kamera.jpg" style="width:40px;height:40px;"></a>
 		</div>
 		<div class = "navbar-right">
@@ -57,11 +63,10 @@
 			<div class="felugro2" style = "background-color:#f1f1f1">
 				<button type="submit" class="signupbtn">Sign Up</button>
 				<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-				
 			</div>
 			
 		</form>
 	
 	</div>
-</body>
-</html>
+
+    <div>

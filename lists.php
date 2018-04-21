@@ -1,54 +1,11 @@
-<html>
-<head>
-<link rel=stylesheet type="text/css" href="lists.css" />
-</head>
-<body>
- 
-<?php 
-
-$tns = "
-(DESCRIPTION =
-    (ADDRESS_LIST =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-    )
-    (CONNECT_DATA =
-      (SID = xe)
-    )
-  )";
- 
- 
-$conn = oci_connect('Gac_Pet', '5bsxou30v7s', $tns,'UTF8');
-
-
-include('header.php');
-include('functions.php');
-$kat = $_GET['cat'];
-
+<?php
+    include('header.php');
+    include('functions.php');
+    $kat = $_GET['cat'];
 ?>
 <div class="oszlopok">
 		
-		<div class= "side-menubar">
-		<div class="side-menubar1">
-		<p>Listák</p>
-		<a href="#">Felkapott</a>
-		<a href="#">Előzmények</a>
-		<a href="#">Listák</a>
-		</div>
-		<hr>
-		<div class="side-menubar1">
-		<p>Kategóriák</p>
-			<div class="side-menubar2">
-				<?php
-				$stmt = oci_parse($conn,"Select distinct kategoria from videok");
-				oci_execute($stmt);
-				
-				while ($row = oci_fetch_assoc($stmt)) {?>
-				<a href="lists.php?cat=<?php echo $row["KATEGORIA"] ?> "> <?php echo $row["KATEGORIA"] ?></a>
-				
-				<?php } ?>
-			</div>
-		</div>
-		</div>
+		<?php include ("menu.php"); ?>
 		<div class="main">
 		
 			<?php 
@@ -77,5 +34,3 @@ $kat = $_GET['cat'];
 <?php 
 include('footer.php');
 ?>
-</body>
-</html>

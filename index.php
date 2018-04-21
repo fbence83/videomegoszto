@@ -1,62 +1,53 @@
-<?php 
-  $tns = "
-(DESCRIPTION =
-    (ADDRESS_LIST =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
-    )
-    (CONNECT_DATA =
-      (SID = xe)
-    )
-  )";
- 
- 
-$conn = oci_connect('system', 'root', $tns,'UTF8');
+<?php
+    include('functions.php');
+    include('header.php');
 ?>
+<script>
+    function expand(x){
+        if (x == 3){
+            var a = document.getElementById('3').innerHTML;
+            if (a == 'Több'){
+                document.getElementById('napi').style.height = '630px';
+                document.getElementById('3').innerHTML = 'Vissza';
+            } else if (a == 'Vissza'){
+                document.getElementById('napi').style.height = '350px';
+                document.getElementById('3').innerHTML = 'Több';
+            }
+        }
+        if (x == 2){
+            var a = document.getElementById('2').innerHTML;
+            if (a == 'Több'){
+                document.getElementById('heti').style.height = '630px';
+                document.getElementById('2').innerHTML = 'Vissza';
+            } else if (a == 'Vissza'){
+                document.getElementById('heti').style.height = '350px';
+                document.getElementById('2').innerHTML = 'Több';
+            }
+        }
+        if (x == 1){
+            var a = document.getElementById('1').innerHTML;
+            if (a == 'Több'){
+                document.getElementById('havi').style.height = '630px';
+                document.getElementById('1').innerHTML = 'Vissza';
+            } else if (a == 'Vissza'){
+                document.getElementById('havi').style.height = '350px';
+                document.getElementById('1').innerHTML = 'Több';
+            }
+        }
 
 
-<html>
-<head>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel=stylesheet type="text/css" href="megoszt.css" />
-	<title>Videomegoszto</title>
-</head>
-<body>
+    }
+</script>
 
-	<?php 
-	include('functions.php');
-	include('header.php');	
-	?>
-	
 	<div class="oszlopok">
-		
-		<div class= "side-menubar">
-		<div class="side-menubar1">
-		<p>Listák</p>
-		<a href="#">Felkapott</a>
-		<a href="#">Népszerűek</a>
-		<a href="#">Listák</a>
-		</div>
-		<hr>
-		<div class="side-menubar1">
-		<p>Kategóriák</p>
-			<div class="side-menubar2">
-				<?php
-				$stmt = oci_parse($conn,"Select distinct kategoria from videok");
-				oci_execute($stmt);
-				
-				while ($row = oci_fetch_assoc($stmt)) {?>
-				<a href="lists.php?cat=<?php echo $row["KATEGORIA"] ?> "> <?php echo $row["KATEGORIA"] ?></a>
-				
-				<?php } ?>
-			</div>
-		</div>
-		</div>
+
+    <?php include ("menu.php"); ?>
 		<div class="main">
-		
-			
-		
-		
-				
+
+
+
+
+
 			<div class="ido">
 				<div class="more">
 				<div class="sorok" id = "havi">
@@ -155,48 +146,9 @@ $conn = oci_connect('system', 'root', $tns,'UTF8');
 		</div>
 		</div>
 	</div>
-	<?php 
-	include('footer.php');
-	?>
-	<script>
-	function expand(x){
-		if (x == 3){
-			var a = document.getElementById('3').innerHTML;
-			if (a == 'Több'){
-				document.getElementById('napi').style.height = '630px';
-				document.getElementById('3').innerHTML = 'Vissza';
-			} else if (a == 'Vissza'){
-				document.getElementById('napi').style.height = '350px';
-				document.getElementById('3').innerHTML = 'Több';
-			}
-		}
-		if (x == 2){
-			var a = document.getElementById('2').innerHTML;
-			if (a == 'Több'){
-				document.getElementById('heti').style.height = '630px';
-				document.getElementById('2').innerHTML = 'Vissza';
-			} else if (a == 'Vissza'){
-				document.getElementById('heti').style.height = '350px';
-				document.getElementById('2').innerHTML = 'Több';
-			}
-		}
-		if (x == 1){
-			var a = document.getElementById('1').innerHTML;
-			if (a == 'Több'){
-				document.getElementById('havi').style.height = '630px';
-				document.getElementById('1').innerHTML = 'Vissza';
-			} else if (a == 'Vissza'){
-				document.getElementById('havi').style.height = '350px';
-				document.getElementById('1').innerHTML = 'Több';
-			}
-		}
-		
-		
-	}
-	</script>
-	
 	<?php
 	oci_close($conn);
 	?>
-</body>
-</html>
+<?php
+include('footer.php');
+?>

@@ -23,7 +23,7 @@ $conn = oci_connect('system', 'root', $tns,'UTF8');
 	<div class="homepage-header">
 		
 		<div class="logo">
-		<a href ="megoszt.php" >
+		<a href ="index.php" >
 		<img src="kamera.jpg" style="width:40px;height:40px;"></a>
 		</div>
 		<div class = "navbar-right">
