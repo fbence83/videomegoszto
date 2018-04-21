@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $ui = $_POST["uname"];
 $pass =$_POST["psw"];

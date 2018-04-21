@@ -1,5 +1,6 @@
 .body {
 	margin:0;
+	font-family:arial;
 }
 
 
@@ -39,7 +40,7 @@
 .main {
 	margin-left:130px;
 	margin-right:5px;
-	background-color:gray;
+	background-color:white;
 	flex:70%;
 	display:flex;
 	flex-direction:column;
@@ -63,13 +64,13 @@
 
 .cim {
 	margin-left:2px;
-	margin-top:20px;
-	border-radius:5px;
-	border-style:solid;
+	margin-top:2px;
+	/*border-radius:5px;
+	border-style:solid;*/
 	background-color:white;
 	height:auto;
 	width:85%;
-	padding-left:14%;
+	padding-left:10%;
 	
 }
 .cim h2 {
@@ -77,50 +78,103 @@
 }
 
 .cim h3 {
-	padding-right:5px;
+	padding-right:20px;
 	float:right;
 }
-.szam {
-	padding-left:5px;
+#megtekint {
+	font-family:arial;
+	font-weight:normal;
+	color:gray;
 }
 .iconbar a{
 	text-decoration:none;
-	color:black;
+	color:gray;
 	font-size:18px;
 	font-weight:bold;
 	display:inline-block;
 	padding-top:20px;
 }
 .iconbar {
+	
+	font-family:arial;
 	margin-left:2px;
-	border-style:solid;
 	height:auto;
 	background-color:white;
 	width:85%;
 	height:60px;
-	padding-left:14%;
+	padding-left:10%;
+	
 }
 .iconbar img {
+	
 	padding:10px;
 	float:right;
 }
+#nahh {
+	width:80%;
+}
+
+.hozzaszol {
+	padding-left:10%;
+	padding-bottom:30px;
+	
+}
+.hozzaszol p {
+	font-size:20px;
+	font-family:arial;
+	display:block;
+}
+
+form.megjegyzes input[type=text] {
+   
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  height:39px;
+  padding: 8px 8px 8px;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.megjegyzes button {
+  float: left;
+  margin-top:0px;
+  width: 10%;
+  padding: 10px;
+  background: #4CAF50;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+
 
 .hozzaszolasok {
+	padding-left:10%;
 	background-color:white;
 }
 .hozzaszolas {
 	height:120px;
 	margin:4px;
-	border-style:solid;
-	border-radius:5px;
+	font-family:arial;
+	/*border-style:solid;
+	border-radius:5px;*/
 }
 
+#comment {
+	width:90%;
+	margin-right:10%;
+}
 .feltolto-nev a {
 	margin:0px;
-	padding:10px;
+	padding:0 10px 0px 10px;
 	display:inline-block;
 	text-decoration:none;
 	color:black;
+	
 	font-size:20px;
 	font-weight:bold;
 	
@@ -136,7 +190,7 @@
 .komment {
 	margin:0px;
 	display:inline-block;	
-	padding:8px;
+	padding:8px 8px 0px 8px;
 	
 }
 
@@ -144,30 +198,30 @@
 	overflow-x:hidden;
 	display:inline-block;
 	padding:5px;
-	background-color:#333;
+	background-color:white;
 	margin:5px;
-	border-radius:5px;
 	
 }
 
 .cim-es-adatok  {
-	/*text-align:left;*/
 	padding-left:5px;
 	width:253px;
-	border-style:solid;
-	border-color:white;
 }
-.cim-es-adatok a, .cim-es-adatok h3{
+.cim-es-adatok h3{
+	font-family:arial;
 	display:block;
 	font-weight: bold;
 	font-size:14px;
 	white-space:pre-line;
 	word-wrap:break-word;
-	height:30px;
+	height:20px;
 	text-decoration:none;
-	color:white;
+	color:black;
 }
-
+#felhaszn{
+	text-decoration:none;
+	color:gray;
+}
 
 .container table {
 	
@@ -178,7 +232,7 @@
 
 .hasonlo {
 	overflow:hidden;
-	height:136%;
+	height:130%;
 }
 
 #tobb {

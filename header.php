@@ -10,13 +10,52 @@
     <title>Videomegoszto</title>
 </head>
 <body>
+<script>
+    function showHint(str) {
+        if (str.length == 0) {
+            document.getElementById("txtHint").innerHTML = "";
+            document.getElementById("what").style.display = 'none';
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("what").style.display = 'block';
+                    var x = this.responseText;
+                    var szavak = x.split(",");
+                    var mennyi = szavak.length;
 
+                    text = "<ul>";
+                    for (i = 0; i < mennyi; i++) {
+                        text += "<li>" + "<a href =\"videos.php?id=" + szavak[i] + "\"" +   ">" + szavak[i] + "</a>" + "</li>";
+                    }
+                    text += "</ul>";
+                    document.getElementById("txtHint").innerHTML = text;
+
+                }
+            };
+            xmlhttp.open("GET", "talalatok.php?q=" + str, true);
+            xmlhttp.send();
+        }
+    }
+</script>
 <div class="homepage-header">
 		
 		<div class="logo">
 		    <a href ="index.php" >
 		    <img src="kamera.jpg" style="width:40px;height:40px;"></a>
 		</div>
+        <div class="searchbar">
+            <form class="search-bar" action="/action_page.php" style="margin:auto;max-width:800px">
+                <input type="text" onkeyup="showHint(this.value)" placeholder="Search.." name="search2">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="forsearch" id="what" >
+            <p id="txtHint"></p>
+        </div>
+
 		<div class = "navbar-right">
             <?php
                 if(isset($_SESSION["user"])){ ?>

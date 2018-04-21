@@ -44,7 +44,6 @@ if(isset($_POST["registration"])){
         $stmt = oci_parse($conn, $q);
         oci_execute($stmt);
 
-        
     }
 }
 ?>
