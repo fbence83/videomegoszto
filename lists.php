@@ -1,7 +1,7 @@
 <?php
 session_name("video");
+include('functions.php');
     include('header.php');
-    include('functions.php');
     $kat = $_GET['cat'];
 ?>
 <div class="oszlopok">

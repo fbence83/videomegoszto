@@ -48,9 +48,9 @@ include('header.php');
                     <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>"><?php echo $row["FELHASZNALONEV"] ?> </a>
                     <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; ?>
                     <?php } ?>
-                    <img src="kamera.jpg" style="width:40px;height:40px;">
-                    <img src="kamera.jpg" style="width:40px;height:40px;">
-                    <img src="kamera.jpg" style="width:40px;height:40px;">
+                    <img src="img/kamera.jpg" style="width:40px;height:40px;">
+                    <img src="img/kamera.jpg" style="width:40px;height:40px;">
+                    <img src="img/kamera.jpg" style="width:40px;height:40px;">
                 </div>
                 <hr>
             </div>

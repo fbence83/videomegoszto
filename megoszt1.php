@@ -24,7 +24,7 @@ $conn = oci_connect('system', 'root', $tns,'UTF8');
 		
 		<div class="logo">
 		<a href ="index.php" >
-		<img src="kamera.jpg" style="width:40px;height:40px;"></a>
+		<img src="img/kamera.jpg" style="width:40px;height:40px;"></a>
 		</div>
 		<div class = "navbar-right">
 			
@@ -61,9 +61,9 @@ $conn = oci_connect('system', 'root', $tns,'UTF8');
 				<div class ="iconbar">
 					<h3><?php echo $row["FELHASZNALONEV"]?></h3>
 				<?php } ?>
-					<img src="kamera.jpg" style="width:40px;height:40px;">
-					<img src="kamera.jpg" style="width:40px;height:40px;">
-					<img src="kamera.jpg" style="width:40px;height:40px;">
+					<img src="img/kamera.jpg" style="width:40px;height:40px;">
+					<img src="img/kamera.jpg" style="width:40px;height:40px;">
+					<img src="img/kamera.jpg" style="width:40px;height:40px;">
 				</div>
 			</div>
 			<div class= "hozzaszolasok">

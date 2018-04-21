@@ -31,6 +31,8 @@ include('header.php');?>
                 <a href="#">Videói</a>
                 <hr>
                 <a href="#">Lejátszási listák</a>
+                <hr>
+                <a href="userdatas.php?id=<?php echo $nev; ?>">Adatok</a>
             </div>
         </div>
         <div class="Videoi">
@@ -47,12 +49,12 @@ include('header.php');?>
                 <div class="container">
                     <div class="videonak">
                         <?php $konvertal = konvertal($row["LINK"]); ?>
-                        <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
-                            <img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+                        <a href = "videos.php?id=<?php echo $row["CIM"]; ?>">
+                            <img src="<?php echo $konvertal; ?>" style="width:264px;height:180px;"></a>
                     </div>
                     <div class="cim-es-adatok">
-                        <a href= "videos.php?id=<?php echo $row["CIM"] ?>  "> <?php echo $row["CIM"] ?></a>
-                        <a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> " id="felhaszn"><?php echo $row["FELHASZNALONEV"] ?></a>
+                        <a href= "videos.php?id=<?php echo $row["CIM"]; ?>  "> <?php echo $row["CIM"]; ?></a>
+                        <a href="user.php?id=<?php echo $row["FELHASZNALONEV"]; ?> " id="felhaszn"><?php echo $row["FELHASZNALONEV"]; ?></a>
                     </div>
                 </div>
             <?php }

@@ -1,12 +1,12 @@
 <DOCTYPE! html>
 <html lang="hu">
 <head>
-    <link rel=stylesheet type="text/css" href="navbars.css" />
+    <link rel=stylesheet type="text/css" href="css/navbars.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel=stylesheet type="text/css" href="megoszt.css" />
-    <link rel=stylesheet type="text/css" href="lists.css" />
-    <link rel=stylesheet type="text/css" href="videos.css" />
-    <link rel=stylesheet type="text/css" href="user.css" />
+    <link rel=stylesheet type="text/css" href="css/megoszt.css" />
+    <link rel=stylesheet type="text/css" href="css/lists.css" />
+    <link rel=stylesheet type="text/css" href="css/videos.css" />
+    <link rel=stylesheet type="text/css" href="css/user.css" />
     <title>Videomegoszto</title>
 </head>
 <body>
@@ -43,7 +43,7 @@
 		
 		<div class="logo">
 		    <a href ="index.php" >
-		    <img src="kamera.jpg" style="width:40px;height:40px;"></a>
+		    <img src="img/kamera.jpg" style="width:40px;height:40px;"></a>
 		</div>
         <div class="searchbar">
             <form class="search-bar" action="/action_page.php" style="margin:auto;max-width:800px">
