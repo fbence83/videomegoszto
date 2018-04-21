@@ -16,7 +16,7 @@ if(isset($_POST["login_button"])) {
         header("Location: user.php?id=" . $rows["FELHASZNALONEV"]);
         exit();
     }else{
-        echo "Nem létezik ilyen felhasználónév vagy jelszó!";
+        echo "Hibás felhasználónév vagy jelszó!";
     }
 
 }
@@ -26,6 +26,26 @@ if(isset($_POST["logout_button"])){
     session_destroy();
     header("Location: index.php");
     exit();
+}
+
+if(isset($_POST["registration"])){
+    if($_POST["pass"] != $_POST["passa"]){
+        echo "Hiba! Nem egyezik meg a két jelszó!";
+    }else if(empty($_POST["username"]) || empty($_POST["pass"]) || empty($_POST["passa"]) || empty($_POST["email"]) || empty($_POST["gender"]) || empty($_POST["bday"])){
+        echo "Hiba! Üresen maradt mező(k)!";
+    }else{
+        $uname = $_POST["username"];
+        $pass = $_POST["pass"];
+        $email = $_POST["email"];
+        $gender = $_POST["gender"];
+        $bday = $_POST["bday"];
+
+        $q = "INSERT INTO FELHASZNALOK (FELHASZNALONEV, JELSZO, EMAIL, SZULETESI_IDO, NEM) VALUES ('$uname', '$pass', '$email', TO_DATE('$bday', 'YY-MM-DD'), '$gender')";
+        $stmt = oci_parse($conn, $q);
+        oci_execute($stmt);
+
+        
+    }
 }
 ?>
 <script>
