@@ -36,6 +36,19 @@ if(isset($_POST["modify_pass"])) {
     }
 }
 
+if(isset($_POST["modify_email"])){
+    if(empty($_POST["email"])){
+        echo "Nem adtál meg e-mail címet!";
+    }else{
+        $email = $_POST["email"];
+        $old = $_SESSION["user"][0];
+
+        $q = "UPDATE FELHASZNALOK SET EMAIL='$email' WHERE FELHASZNALONEV='$old'";
+        $stmt = oci_parse($conn, $q);
+        oci_execute($stmt);
+    }
+}
+
 ?>
 <div class="oszlopok">
 
@@ -43,6 +56,7 @@ if(isset($_POST["modify_pass"])) {
     <div class="main">
         <div class ="felhasz">
             <h2><?php echo $nev; ?> </h2>
+            <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
         </div>
         <div class="adatok">
             <h4>Adatok</h4>
@@ -82,6 +96,14 @@ if(isset($_POST["modify_pass"])) {
                 </table>
             </form>
         </div>
+            <div class="email">
+                <form method="post">
+                    <table>
+                        <tr><td><input type="email" name="email" placeholder="E-mail cím"/></td></tr>
+                        <tr><td><button type="submit" name="modify_email">Módosít</button></td></tr>
+                    </table>
+                </form>
+            </div>
         <?php } ?>
     </div>
 </div>
