@@ -1,4 +1,5 @@
 <?php
+session_name("video");
 
 if(!isset($_GET['id'])){
 	header('Location: index.php');

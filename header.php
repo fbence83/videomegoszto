@@ -10,27 +10,35 @@
     <title>Videomegoszto</title>
 </head>
 <body>
+
 <div class="homepage-header">
 		
 		<div class="logo">
-		<a href ="index.php" >
-		<img src="kamera.jpg" style="width:40px;height:40px;"></a>
+		    <a href ="index.php" >
+		    <img src="kamera.jpg" style="width:40px;height:40px;"></a>
 		</div>
 		<div class = "navbar-right">
-			<button onclick="document.getElementById('id01').style.display='block'"  style="width:auto;">Login</button>
-			<button onclick="document.getElementById('id02').style.display='block'"  style="width:auto;">Register</button>
+            <?php
+                if(isset($_SESSION["user"])){ ?>
+                    <form action="index.php" method="post">
+                        <button type="submit" name="logout_button" style="width:auto; display: block">Log Out</button>
+                    </form>
+                <?php }else{ ?>
+                    <button onclick="document.getElementById('id01').style.display='block'"  style="width:auto;">Login</button>
+                    <button onclick="document.getElementById('id02').style.display='block'"  style="width:auto;">Register</button>
+                <?php } ?>
 		</div>
 	</div>
 	<div id="id01" class="modal">
   
-		<form class="modal-content animate" method="POST" action="action_page.php">
+		<form class="modal-content animate" method="POST" action="index.php">
 
 			<div class="felugro">
 				<label for="uname"><b>Username</b></label>
 				<input type="text" placeholder="Enter Username" name="uname" required>
 				<label for="psw"><b>Password</b></label>
 				<input type="password" placeholder="Enter Password" name="psw" required>
-				<button type="submit" class="loginbutton">Login</button>
+				<button type="submit" name="login_button" class="loginbutton">Login</button>
 			</div>
 
 			<div class="felugro" style="background-color:#f1f1f1">

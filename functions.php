@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ("dao.php");
 
 function convertYoutube($string) {

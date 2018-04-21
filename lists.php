@@ -1,4 +1,5 @@
 <?php
+session_name("video");
     include('header.php');
     include('functions.php');
     $kat = $_GET['cat'];

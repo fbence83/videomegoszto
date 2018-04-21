@@ -1,6 +1,32 @@
 <?php
+session_name("video");
     include('functions.php');
     include('header.php');
+
+if(isset($_POST["login_button"])) {
+    $username = $_POST["uname"];
+    $password = $_POST["psw"];
+
+    $q = "SELECT * FROM FELHASZNALOK WHERE FELHASZNALONEV = '$username' AND JELSZO = '$password'";
+    $stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+
+    if($rows = oci_fetch_array($stmt)){
+        $_SESSION["user"] = (array)$rows;
+        header("Location: user.php?id=" . $rows["FELHASZNALONEV"]);
+        exit();
+    }else{
+        echo "Nem létezik ilyen felhasználónév vagy jelszó!";
+    }
+
+}
+
+if(isset($_POST["logout_button"])){
+    unset($_SESSION["user"]);
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
 ?>
 <script>
     function expand(x){

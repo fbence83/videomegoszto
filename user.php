@@ -1,4 +1,5 @@
 <?php
+session_name("video");
  
 $nev = $_GET['id'];
 
