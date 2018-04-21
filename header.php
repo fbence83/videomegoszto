@@ -58,8 +58,9 @@
 
 		<div class = "navbar-right">
             <?php
-                $fioknev = $_SESSION["user"][0];
-                if(isset($_SESSION["user"])){ ?>
+                if(isset($_SESSION["user"])){
+                    $fioknev = $_SESSION["user"][0];
+                    ?>
                     <a href="user.php?id=<?php echo $fioknev; ?>">Fiókom</a>
                     <form action="index.php" method="post">
                         <button type="submit" name="logout_button" style="width:auto; display: block">Log Out</button>

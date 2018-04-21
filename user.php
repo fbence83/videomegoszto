@@ -30,9 +30,12 @@ include('header.php');?>
             <div class="menubar">
                 <a href="#">Videói</a>
                 <hr>
+                <a href="video_upload.php?id=<?php echo $nev; ?>">Videó feltöltése</a>
+                <hr>
                 <a href="#">Lejátszási listák</a>
                 <hr>
                 <a href="userdatas.php?id=<?php echo $nev; ?>">Adatok</a>
+                <hr>
             </div>
         </div>
         <div class="Videoi">
