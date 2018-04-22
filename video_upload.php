@@ -39,25 +39,8 @@ while($rows = oci_fetch_assoc($stmt)){
     $i++;
 }
 
-$i = 1;
-$categoryLength = 0;
-foreach ($categories as $category){
-    $categoryLength++;
-}
-
-$j = 1;
-$newarray = array();
-$newarray[0] = $categories[0];
-
-//itt hagytam abba
-    while($i <= $categoryLength) {
-        if ($newarray[0] != $categories[$i]) {
-            $newarray[$j] = $categories[$i];
-            $j++;
-        }
-        $i++;
-    }
-    $i = 0;
+$categories = array_values($categories);
+$categories = array_unique($categories);
 
 ?>
 
@@ -66,7 +49,7 @@ $newarray[0] = $categories[0];
         <?php include ("menu.php"); ?>
         <div class="main">
             <div class ="felhasz">
-                <h2><?php echo $nev; var_dump($categories); ?> </h2>
+                <h2><?php echo $nev; ?> </h2>
                 <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
             </div>
             <div class="feltöltés">

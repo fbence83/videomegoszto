@@ -17,14 +17,19 @@ include('header.php');?>
 
             <div class = "legnezettebb">
                 <?php
-                $stmt = oci_parse($conn,"Select link from videok where felhasznalonev = '$nev' and rownum < 2  order by megtekintesek_szama");
+                $stmt = oci_parse($conn,"Select * from videok where felhasznalonev = '$nev' and rownum < 2  order by megtekintesek_szama");
                 oci_execute($stmt);
 
-                while ($row = oci_fetch_assoc($stmt)) {?>
+                while ($row = oci_fetch_assoc($stmt)) { ?>
                     <div class="videonak">
-                        <?php echo convertYoutube480($row["LINK"]);?>
+                        <?php
+                        echo convertYoutube480($row["LINK"]);
+                        $views = $row["MEGTEKINTESEK_SZAMA"];
+                        echo "Megtekintések száma: " .$views;
+                        ?>
                     </div>
-                <?php } ?>
+                <?php }
+                ?>
 
             </div>
             <div class="menubar">

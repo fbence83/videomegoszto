@@ -8,6 +8,7 @@ if(!isset($_GET['id'])){
 }
 include('functions.php');
 include('header.php');
+
 ?>
     <script>
         function novel(){
@@ -31,11 +32,13 @@ include('header.php');
                 $k = $_GET['id'];
                 $stmt1 = oci_parse($conn,"Select * from videok where cim = '$k'");
                 oci_execute($stmt1);
+                $vidi = '';
+                $views = 0;
 
                 while ($row = oci_fetch_assoc($stmt1)){ ?>
                 <div class= "video">
 
-                    <?php echo convertYoutubenagy($row["LINK"]); $vidi = $row["LINK"];?>
+                    <?php echo convertYoutubenagy($row["LINK"]); $vidi = $row["LINK"]; $views = $row["MEGTEKINTESEK_SZAMA"]; ?>
 
                 </div>
                 <hr id = "nahh">
@@ -47,7 +50,23 @@ include('header.php');
                 <div class ="iconbar">
                     <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>"><?php echo $row["FELHASZNALONEV"] ?> </a>
                     <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; ?>
-                    <?php } ?>
+                    <?php }
+                    $views++;
+                    $q = "UPDATE VIDEOK SET MEGTEKINTESEK_SZAMA='$views' WHERE LINK='$vidi'";
+                    $stmt = oci_parse($conn, $q);
+                    oci_execute($stmt);
+
+                    if(isset($_POST["submit"])){
+                        $comment = $_POST["search3"];
+                        $user = $_SESSION["user"][0];
+                        $date = date("Y-m-d");
+
+                        $q = "INSERT INTO HOZZASZOLASOK (LINK, FELHASZNALONEV, MIKOR, KOMMENT) VALUES ('$vidi', '$user', TO_DATE('$date', 'YY-MM-DD'), '$comment')";
+                        $stmt = oci_parse($conn, $q);
+                        oci_execute($stmt);
+
+                    }
+                    ?>
                     <img src="img/kamera.jpg" style="width:40px;height:40px;">
                     <img src="img/kamera.jpg" style="width:40px;height:40px;">
                     <img src="img/kamera.jpg" style="width:40px;height:40px;">
@@ -56,9 +75,9 @@ include('header.php');
             </div>
             <div class = "hozzaszol">
                 <p>Megjegyzés</p>
-                <form class="megjegyzes" action="action_page.php" method="POST">
+                <form class="megjegyzes" action="" method="POST">
                     <input type="text" placeholder="Hozzaszol.." name="search3">
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <button type="submit" name="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
 
