@@ -3,19 +3,25 @@ session_name("video");
     include('functions.php');
 
 if(isset($_POST["login_button"])) {
-    $username = $_POST["uname"];
-    $password = $_POST["psw"];
-
-    $q = "SELECT * FROM FELHASZNALOK WHERE FELHASZNALONEV = '$username' AND JELSZO = '$password'";
-    $stmt = oci_parse($conn, $q);
-    oci_execute($stmt);
-
-    if($rows = oci_fetch_array($stmt)){
-        $_SESSION["user"] = (array)$rows;
-        header("Location: user.php?id=".$username);
-        exit();
+    if(empty($_POST["uname"]) || empty($_POST["psw"])){
+        echo "Hiba! Üres mező(k)!";
     }else{
-        echo "Hibás felhasználónév vagy jelszó!";
+        $username = $_POST["uname"];
+        if(!empty($_POST["psw"])){
+            $password = md5($_POST["psw"]);
+        }
+
+        $q = "SELECT * FROM FELHASZNALOK WHERE FELHASZNALONEV = '$username' AND JELSZO = '$password'";
+        $stmt = oci_parse($conn, $q);
+        oci_execute($stmt);
+
+        if ($rows = oci_fetch_array($stmt)) {
+            $_SESSION["user"] = (array)$rows;
+            header("Location: user.php?id=" . $username);
+            exit();
+        } else {
+            echo "Hibás felhasználónév vagy jelszó!";
+        }
     }
 
 }
@@ -34,7 +40,9 @@ if(isset($_POST["registration"])){
         echo "Hiba! Üresen maradt mező(k)!";
     }else{
         $uname = $_POST["username"];
-        $pass = $_POST["pass"];
+        if(!empty($_POST["pass"])){
+            $pass = md5($_POST["pass"]);
+        }
         $email = $_POST["email"];
         $gender = $_POST["gender"];
         $bday = $_POST["bday"];
