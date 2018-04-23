@@ -9,6 +9,18 @@ if(!isset($_GET['id'])){
 include('functions.php');
 include('header.php');
 
+//komment törlés
+if(isset($_POST["delete_comment"])){
+    $comment = $_POST["comment"];
+    $user = $_SESSION["user"][0];
+    $link = $_POST["link"];
+    $date = $_POST["date"];
+
+    $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR='$date' AND KOMMENT='$comment'";
+    $stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+
+}
 ?>
     <script>
         function novel(){
@@ -56,11 +68,11 @@ include('header.php');
                     $stmt = oci_parse($conn, $q);
                     oci_execute($stmt);
 
+                    //hozzászólás felviele db-be
                     if(isset($_POST["submit"])){
                         $comment = $_POST["search3"];
-                        $user = $_SESSION["user"][0];
                         $date = date("Y-m-d");
-
+                        $user = $_SESSION["user"][0];
                         $q = "INSERT INTO HOZZASZOLASOK (LINK, FELHASZNALONEV, MIKOR, KOMMENT) VALUES ('$vidi', '$user', TO_DATE('$date', 'YY-MM-DD'), '$comment')";
                         $stmt = oci_parse($conn, $q);
                         oci_execute($stmt);
@@ -83,6 +95,20 @@ include('header.php');
 
             <div class= "hozzaszolasok">
                 <?php
+                //kiszedtem a bejelentkezett user kommentjeit amelyek kapcsolódnak ehhez a videóhoz
+                if(isset($_SESSION["user"])) {
+                    $user = $_SESSION["user"][0];
+                    $q = "SELECT * FROM HOZZASZOLASOK WHERE FELHASZNALONEV='$user' AND LINK='$vidi' ORDER BY MIKOR";
+                    $stmt5 = oci_parse($conn, $q);
+                    oci_execute($stmt5);
+                    $i = 0;
+                    $comments = array();
+                    while ($row2 = oci_fetch_assoc($stmt5)) {
+                        $comments[$i] = $row2;
+                        $i++;
+                    }
+                }
+                //listázzuk az összes hozzászólást
                 $stmt2=oci_parse($conn, "select * from hozzaszolasok where link= '$vidi' order by mikor");
                 oci_execute($stmt2);
                 while ($row = oci_fetch_assoc($stmt2)){
@@ -93,7 +119,30 @@ include('header.php');
                             <p><?php echo $row["MIKOR"]?> </p>
                         </div>
                         <div class = "komment">
-                            <p><?php echo $row["KOMMENT"] ?></p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p><?php echo $row["KOMMENT"] ?></p>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        if(isset($_SESSION["user"])){
+                                            foreach ($comments as $one) {
+                                                if($row["KOMMENT"] == $one["KOMMENT"]){
+                                                    ?>
+                                                    <form action="" method="post">
+                                                        <input type="hidden" value="<?php echo $one["LINK"]; ?>" name="link">
+                                                        <input type="hidden" value="<?php echo $one["MIKOR"]; ?>" name="date">
+                                                        <input type="hidden" value="<?php echo $one["KOMMENT"];?>" name="comment">
+                                                        <button type="submit" name="delete_comment">Törlés</button>
+                                                    </form>
+                                                    <?php
+                                                }
+                                            }
+                                        } ?>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                         <hr id="comment">
                     </div>
