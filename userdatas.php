@@ -49,13 +49,37 @@ if(isset($_POST["modify_email"])){
     }
 }
 
+if(isset($_POST["upload"])){
+        $target_dir = "img/";
+        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+        $uploadOK = 1;
+        $check = getimagesize($_FILES["image"]["tmp_name"]);
+
+        if ($uploadOK == 0) {
+            echo "shit";
+        } else {
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $img = "Sikeres képfeltöltés:  " . basename($_FILES["image"]["name"]);
+                $uname = $_SESSION["user"][0];
+                $image_name = basename($_FILES["image"]["name"]);
+                $q = "UPDATE FELHASZNALOK SET KEP='$image_name' WHERE FELHASZNALONEV='$uname'";
+                $stmt = oci_parse($conn, $q);
+                oci_execute($stmt);
+                $userarray[5] = $image_name;
+                $_SESSION["user"][5] = $image_name;
+            } else {
+                $img = "Nem sikerült feltölteni a képet.";
+            }
+        }
+}
+
 ?>
 <div class="oszlopok">
 
     <?php include ("menu.php"); ?>
     <div class="main">
         <div class ="felhasz">
-            <h2><?php echo $nev; ?> </h2>
+            <h2><?php echo $nev; echo $_SESSION["user"][5];?> </h2>
             <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
         </div>
         <div class="adatok">
@@ -102,6 +126,13 @@ if(isset($_POST["modify_email"])){
                         <tr><td><input type="email" name="email" placeholder="E-mail cím"/></td></tr>
                         <tr><td><button type="submit" name="modify_email">Módosít</button></td></tr>
                     </table>
+                </form>
+            </div>
+            <div class="profilepic">
+                <img src="img/<?php echo $userarray[5]; ?>" id="avatar" style="width:200px;height:200px;">
+                <form method="post" enctype="multipart/form-data">
+                    <label for="image">Kép:</label><input type="file" id="image" name="image"  accept=".jpg, .jpeg, .png" multiple>
+                    <button type="submit" name="upload" >Csere</button>
                 </form>
             </div>
         <?php } ?>

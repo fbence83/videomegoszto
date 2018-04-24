@@ -6,7 +6,6 @@ $nev = $_GET['id'];
 include('functions.php');				
 include('header.php');?>
 
-
 <div class="oszlopok">
 
     <?php include ("menu.php"); ?>
@@ -36,9 +35,9 @@ include('header.php');?>
 			
             <div class="menubar10">
 				<div class ="felhasz">
-					<h2><?php echo $nev ?> </h2>
+					<h2><?php echo $nev; ?> </h2>
 				</div>
-			<img src="img/default.png" id="avatar" style="width:200px;height:200px;">
+			<img src="img/<?php echo $_SESSION["user"][5]; ?>" id="avatar" style="width:200px;height:200px;">
                 <a href="#">Videói</a>
                 <hr>
                 <a href="video_upload.php?id=<?php echo $nev; ?>">Videó feltöltése</a>

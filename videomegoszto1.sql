@@ -15,20 +15,21 @@ jelszo				VARCHAR2(32) NOT NULL,
 email				VARCHAR2(40) NOT NULL,
 szuletesi_ido		DATE NOT NULL,
 nem					VARCHAR2(10) NOT NULL,
+kep         VARCHAR2(200) DEFAULT 'default.png' NOT NULL,
 CONSTRAINT Felhasznalo_PRIMARY_KEY PRIMARY KEY (felhasznalonev));
 
-INSERT INTO Felhasznalok VALUES ('jAnCsIaKiRaLy', 'c10c1a08ff41882e7249eafbf0f8786c', 'jancsi@freemail.com', '6-MAY-6', 'Férfi'); --jancsikiraly
-INSERT INTO Felhasznalok VALUES ('NagyJozsef1', 'e10adc3949ba59abbe56e057f20f883e', 'proba234@gmail.com', '5-DEC-1978', 'Férfi'); --123456
-INSERT INTO Felhasznalok VALUES ('Beluska1995', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'hahatalanmukodik@gmail.com', '25-NOV-1995', 'Férfi'); --qwerty
-INSERT INTO Felhasznalok VALUES ('xxxnoscopeyyy', '138b6f104921a050728d1585e8548c0a', 'whatislove@gmail.com', '12-MAY-1983', 'Férfi'); --palinka
-INSERT INTO Felhasznalok VALUES ('1984Kati', '138b6f104921a050728d1585e8548c0a', 'kati84@gmail.com', '12-JAN-1978', 'Nő'); --palinka
-INSERT INTO Felhasznalok VALUES ('3l3m3r63', '1ea172d9a3ae431eaf69853242de06cb', 'tricky@freemail.com', '19-JUN-1991', 'Férfi'); --xwqadw
-INSERT INTO Felhasznalok VALUES ('Somebody34', '141f21b851dfe606bbf4d2a55b4835a1', 'someybody34@gmail.com', '18-FEB-1986', 'Férfi'); --lillacska
-INSERT INTO Felhasznalok VALUES ('KovacsBela02', '82e6246d622ec4a59e5b346a1a347101', '9gag@gmail.com', '12-MAY-1961', 'Férfi'); --19830512
-INSERT INTO Felhasznalok VALUES ('KovacsBela01', '34e5cc84b82f70dd17a12240f0c91491', 'Bela.kovacs@freemail.com', '11-DEC-1967', 'Férfi'); --egykupica
-INSERT INTO Felhasznalok VALUES ('2good4you', '5f4dcc3b5aa765d61d8327deb882cf99', 'rickrolled@gmail.com', '12-MAY-1983', 'Nő'); --password
-INSERT INTO Felhasznalok VALUES ('Adatbgyak01', '865a77091bb05d4af86b1ca515bb9eea', 'sajatcim@gmail.com', '10-SEP-1998', 'Ferfi'); --ssadm
-INSERT INTO Felhasznalok VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@videomegoszto.com', '24-SEP-1985', 'Ferfi'); --admin
+INSERT INTO Felhasznalok VALUES ('jAnCsIaKiRaLy', 'c10c1a08ff41882e7249eafbf0f8786c', 'jancsi@freemail.com', '6-MAY-6', 'Férfi', 'default.png'); --jancsikiraly
+INSERT INTO Felhasznalok VALUES ('NagyJozsef1', 'e10adc3949ba59abbe56e057f20f883e', 'proba234@gmail.com', '5-DEC-1978', 'Férfi', 'default.png'); --123456
+INSERT INTO Felhasznalok VALUES ('Beluska1995', 'd8578edf8458ce06fbc5bb76a58c5ca4', 'hahatalanmukodik@gmail.com', '25-NOV-1995', 'Férfi', 'default.png'); --qwerty
+INSERT INTO Felhasznalok VALUES ('xxxnoscopeyyy', '138b6f104921a050728d1585e8548c0a', 'whatislove@gmail.com', '12-MAY-1983', 'Férfi', 'default.png'); --palinka
+INSERT INTO Felhasznalok VALUES ('1984Kati', '138b6f104921a050728d1585e8548c0a', 'kati84@gmail.com', '12-JAN-1978', 'Nő', 'default.png'); --palinka
+INSERT INTO Felhasznalok VALUES ('3l3m3r63', '1ea172d9a3ae431eaf69853242de06cb', 'tricky@freemail.com', '19-JUN-1991', 'Férfi', 'default.png'); --xwqadw
+INSERT INTO Felhasznalok VALUES ('Somebody34', '141f21b851dfe606bbf4d2a55b4835a1', 'someybody34@gmail.com', '18-FEB-1986', 'Férfi', 'default.png'); --lillacska
+INSERT INTO Felhasznalok VALUES ('KovacsBela02', '82e6246d622ec4a59e5b346a1a347101', '9gag@gmail.com', '12-MAY-1961', 'Férfi', 'default.png'); --19830512
+INSERT INTO Felhasznalok VALUES ('KovacsBela01', '34e5cc84b82f70dd17a12240f0c91491', 'Bela.kovacs@freemail.com', '11-DEC-1967', 'Férfi', 'default.png'); --egykupica
+INSERT INTO Felhasznalok VALUES ('2good4you', '5f4dcc3b5aa765d61d8327deb882cf99', 'rickrolled@gmail.com', '12-MAY-1983', 'Nő', 'default.png'); --password
+INSERT INTO Felhasznalok VALUES ('Adatbgyak01', '865a77091bb05d4af86b1ca515bb9eea', 'sajatcim@gmail.com', '10-SEP-1998', 'Ferfi', 'default.png'); --ssadm
+INSERT INTO Felhasznalok VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@videomegoszto.com', '24-SEP-1985', 'Ferfi', 'default.png'); --admin
 
 CREATE TABLE Videok
 (link				VARCHAR2(2000) NOT NULL,
