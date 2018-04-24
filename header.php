@@ -3,9 +3,9 @@
 <head>
     <link rel=stylesheet type="text/css" href="css/navbars.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel=stylesheet type="text/css" href="css/megoszt.css" />
-    <link rel=stylesheet type="text/css" href="css/lists.css" />
-    <link rel=stylesheet type="text/css" href="css/videos.css" />
+   <link rel=stylesheet type="text/css" href="css/megoszt.css" />
+   <link rel=stylesheet type="text/css" href="css/videos.css" />
+	<link rel=stylesheet type="text/css" href="css/lists.css" />
     <link rel=stylesheet type="text/css" href="css/user.css" />
     <title>Videomegoszto</title>
 </head>

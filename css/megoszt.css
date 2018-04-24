@@ -7,7 +7,7 @@
 
 
 
-.oszlopok {
+.oszlopok3 {
 	display:flex;
 	margin-top:100px;
 	
@@ -42,7 +42,7 @@
 .side-menubar2 {
 	overflow-y:scroll;
 }
-.main {
+.main3 {
 	margin-left:125px;
 	margin-right:30px;
 	background-color:white;
@@ -52,7 +52,7 @@
 	overflow:auto;
 	border-radius:5px;
 }
-.sorok {
+.sorok3 {
 	overflow:hidden;
 	height:350px;
 	white-space:nowrap;
@@ -62,7 +62,7 @@
 	margin:5px;
 }
 
-.sorok h2{
+.sorok3 h2{
 	padding:4px;
 	display:block;
 	background-color:gray;
@@ -71,7 +71,7 @@
 	text-align:left;
 }
 
-.container {
+.container3 {
 	overflow:hidden;
 	display:inline-block;
 	padding:5px;
@@ -80,7 +80,7 @@
 	
 }
 
-.cim-es-adatok  {
+.cim-es-adatok3 {
 	/*text-align:left;*/
 	padding-left:5px;
 	width:257px;
@@ -88,27 +88,47 @@
 	border-width:thin;
 	
 }
-.cim-es-adatok a, .cim-es-adatok h3{
+
+.cim-es-adatok3 h3{
 	font-family:arial;
 	display:block;
 	font-weight: bold;
 	font-size:14px;
 	white-space:pre-line;
 	word-wrap:break-word;
-	height:30px;
+	height:20px;
+	text-decoration:none;
+	color:black;
+}
+.cim-es-adatok3 a{
+	font-family:arial;
+	display:inline-block;
+	font-weight: bold;
+	font-size:14px;
+	white-space:pre-line;
+	word-wrap:break-word;
+	height:20px;
 	text-decoration:none;
 	color:black;
 	
 }
+.cim-es-adatok3 p {
+	display:inline-block;
+	color:gray;
+	font-family:arial;
+	font-size:12px;
+	
+}
+
 #felhaszn{
 	text-decoration:none;
 	color:gray;
 }
 
-.videonak {
+.videonak3 {
 	overflow-x:auto;
 }
-.container table {
+.container3 table {
 	
 	border-style:solid;
 	border-spacing:10pt;
@@ -116,40 +136,28 @@
 }
 
 
-.felugro2 {
-    padding: 16px;
-	border-radius:10px;
-}
-
-.felugro-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; 
-    border: 1px solid #888;
-	border-radius:10px;
-    width: 40%; 
-}
-
-.gridcontainer {
+.gridcontainer3 {
 	display:grid;
 	grid-column-gap:0px;
 	grid-row:gap:10px;
 	grid-template-columns:auto auto auto auto;	
 }
-.more {
+.more3 {
 	text-align:center;
 }
-.more p{
+/*.more3 p{*/
+.moregomb{
 	cursor:pointer;
-	display:inline-block;
+	display:block;
 	font-weight:bold;
 	color:#737373;
 	font-size:20px;
 	font-family:arial;
-
-	
 }
+	
+/*}*/
 
-.more p:hover {
+.moregomb:hover {
 	color:black;
 }
 

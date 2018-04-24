@@ -9,11 +9,11 @@ $tns = "
     )
   )";
 
-$username = 'system';
-//$username = 'Gac_Pet';
+//$username = 'system';
+$username = 'Gac_Pet';
 
-$password = 'root';
-//$password = '5bsxou30v7s';
+//$password = 'root';
+$password = '5bsxou30v7s';
 
 $conn = oci_connect($username, $password, $tns, 'UTF8');
 if (!$conn) {

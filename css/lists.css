@@ -48,16 +48,16 @@
 .sor {
 	display:flex;
 }
-.videonak {
+.videonak5 {
 	
 	padding:20px;
 	flex:40%;
 }
-.cim-es-adatok {
+.cim-es-adatok5{
 	flex:50%;
 	
 }
-.cim-es-adatok a {
+.cim-es-adatok5 a {
 	color:white;
 	display:block;
 	padding:40px;

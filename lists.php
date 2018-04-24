@@ -4,6 +4,7 @@ include('functions.php');
     include('header.php');
     $kat = $_GET['cat'];
 ?>
+
 <div class="oszlopok">
 		
 		<?php include ("menu.php"); ?>
@@ -16,13 +17,13 @@ include('functions.php');
         while ($row = oci_fetch_assoc($stmt)) {
             ?>
             <div class = "sor">
-                <div class = "videonak">
+                <div class = "videonak5">
                     <?php $konvertal = konvertal480($row["LINK"]); ?>
                     <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
                         <img src="<?php echo $konvertal ?>";extension=php_oci8.dll
                              ;extension=php_oci8_11.g.dll></a>
                 </div>
-                <div class = "cim-es-adatok">
+                <div class = "cim-es-adatok5">
                     <a href= "videos.php?id=<?php echo $row["CIM"] ?>  "> <?php echo $row["CIM"] ?></a>
                     <hr>
                     <a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
