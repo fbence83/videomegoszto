@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION["admin"])) {
+    $_SESSION["admin"] = null;
+}
+define("ADMIN", $_SESSION["admin"]);
 include ("dao.php");
 
 function convertYoutube($string) {

@@ -3,7 +3,12 @@ session_name("video");
  
 $nev = $_GET['id'];
 
-include('functions.php');				
+include('functions.php');
+
+if($_SESSION["user"][0] == "admin"){
+    $_SESSION["admin"] = true;
+}
+
 include('header.php');?>
 
 <div class="oszlopok">

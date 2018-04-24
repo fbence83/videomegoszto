@@ -79,7 +79,7 @@ if(isset($_POST["upload"])){
     <?php include ("menu.php"); ?>
     <div class="main">
         <div class ="felhasz">
-            <h2><?php echo $nev; echo $_SESSION["user"][5];?> </h2>
+            <h2><?php echo $nev; ?> </h2>
             <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
         </div>
         <div class="adatok">
@@ -99,6 +99,7 @@ if(isset($_POST["upload"])){
                     <td>Email cím:</td>
                     <td><label><?php echo $userarray[2]; ?></label></td>
                 </tr>
+                <?php if(!ADMIN){ ?>
                 <tr>
                     <td>Születési idő:</td>
                     <td><label><?php echo $userarray[3]; ?></label></td>
@@ -107,6 +108,7 @@ if(isset($_POST["upload"])){
                     <td>Nem:</td>
                     <td><label><?php echo $userarray[4]; ?></label></td>
                 </tr>
+                <?php } ?>
             </table>
         </div>
         <?php if($nev == $_SESSION["user"][0]){ ?>
@@ -128,6 +130,7 @@ if(isset($_POST["upload"])){
                     </table>
                 </form>
             </div>
+            <?php if(!ADMIN){ ?>
             <div class="profilepic">
                 <img src="img/<?php echo $userarray[5]; ?>" id="avatar" style="width:200px;height:200px;">
                 <form method="post" enctype="multipart/form-data">
@@ -135,6 +138,7 @@ if(isset($_POST["upload"])){
                     <button type="submit" name="upload" >Csere</button>
                 </form>
             </div>
+                <?php } ?>
         <?php } ?>
     </div>
 </div>

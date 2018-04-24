@@ -7,6 +7,7 @@ if(!isset($_GET['id'])){
 	echo "Link: " .$_GET['id']. "<br>ˇ";
 }
 include('functions.php');
+
 include('header.php');
 /*if(isset($_POST["list_button"])){
 	$videolink = $vidi;
@@ -41,6 +42,20 @@ if(isset($_POST["delete_comment"])){
     oci_execute($stmt);
 
 }
+
+//komment törlés admin
+if(isset($_POST["delete_comment_admin"])){
+    $comment = $_POST["comment"];
+    $user = $_POST["user"];
+    $link = $_POST["link"];
+    $date = $_POST["date"];
+
+    $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR='$date' AND KOMMENT='$comment'";
+    $stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+
+}
+
 ?>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
@@ -187,7 +202,15 @@ if(isset($_POST["delete_comment"])){
                                                         <?php
                                                     }
                                                 }
-                                            } ?>
+                                            }if(ADMIN){ ?>
+                                            <form action="" method="post">
+                                                <input type="hidden" value="<?php echo $row["FELHASZNALONEV"]; ?>" name="user">
+                                                <input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link">
+                                                <input type="hidden" value="<?php echo $row["MIKOR"]; ?>" name="date">
+                                                <input type="hidden" value="<?php echo $row["KOMMENT"];?>" name="comment">
+                                                <button type="submit" name="delete_comment_admin">Törlés</button>
+                                            </form>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 </table>
@@ -197,11 +220,13 @@ if(isset($_POST["delete_comment"])){
                     <?php }	?>
                 </div>
                 <div class = "hozzaszol">
+                    <?php if(!ADMIN){ ?>
                     <p>Megjegyzés</p>
                     <form class="megjegyzes" action="" method="POST">
                         <input type="text" placeholder="Hozzaszol.." name="search3">
                         <button type="submit" name="submit"><i class="fa fa-search"></i></button>
                     </form>
+                    <?php } ?>
                 </div>
             </div>
         </div>
