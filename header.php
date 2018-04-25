@@ -7,6 +7,12 @@
    <link rel=stylesheet type="text/css" href="css/videos.css" />
 	<link rel=stylesheet type="text/css" href="css/lists.css" />
     <link rel=stylesheet type="text/css" href="css/user.css" />
+	<link rel=stylesheet type="text/css" href="css/playlist.css"/>
+	<link rel=stylesheet type="text/css" href="css/userdatas.css"/>
+	
+
+
+	
     <title>Videomegoszto</title>
 </head>
 <body>
@@ -63,7 +69,7 @@
                     ?>
                     <a href="user.php?id=<?php echo $fioknev; ?>">Fiókom</a>
                     <form action="index.php" method="post">
-                        <button type="submit" name="logout_button" style="width:auto; display: block">Log Out</button>
+                        <button type="submit" name="logout_button" class="logoutbutton" style="width:auto; display: block">Log Out</button>
                     </form>
                 <?php }else{ ?>
                     <button onclick="document.getElementById('id01').style.display='block'"  style="width:auto;">Login</button>

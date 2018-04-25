@@ -83,16 +83,21 @@ form.search-bar::after {
 	text-decoration:none;
 	display:block;
 }
+.navbar-right {
+	margin-left:20px;
+	margin-bottom:5px;
+}
 
 .navbar-right a {
-	text-align:center;
+	
 	float:right;
 	display:block;
-	padding:20px;
+	background-color:#4CAF50;
 	text-decoration:none;
-	font-size:24px;
-	color:#333;
-	
+	font-size:14px;
+	color:white;
+	padding:13px;
+	font-family:arial;
 }
 
 .navbar-right button{
@@ -143,10 +148,20 @@ button:hover {
 	background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 0px 0;
     border: none;
     cursor: pointer;
     width: 100%;
+}
+
+.logoutbutton {
+	background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 8px;
+    border: none;
+    cursor: pointer;
+	
 }
 
 .cancelbtn {

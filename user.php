@@ -42,12 +42,14 @@ include('header.php');?>
 				<div class ="felhasz">
 					<h2><?php echo $nev; ?> </h2>
 				</div>
+				
+				
 			<img src="img/<?php echo $_SESSION["user"][5]; ?>" id="avatar" style="width:200px;height:200px;">
                 <a href="#">Videói</a>
                 <hr>
                 <a href="video_upload.php?id=<?php echo $nev; ?>">Videó feltöltése</a>
                 <hr>
-                <a href="#">Lejátszási listák</a>
+                <a href="playlist.php?id=<?php echo $nev; ?>">Lejátszási listák</a>
                 <hr>
                 <a href="userdatas.php?id=<?php echo $nev; ?>">Adatok</a>
                 <hr>

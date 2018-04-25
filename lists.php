@@ -20,8 +20,7 @@ include('functions.php');
                 <div class = "videonak5">
                     <?php $konvertal = konvertal480($row["LINK"]); ?>
                     <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
-                        <img src="<?php echo $konvertal ?>";extension=php_oci8.dll
-                             ;extension=php_oci8_11.g.dll></a>
+                        <img src="<?php echo $konvertal ?>"></a>
                 </div>
                 <div class = "cim-es-adatok5">
                     <a href= "videos.php?id=<?php echo $row["CIM"] ?>  "> <?php echo $row["CIM"] ?></a>

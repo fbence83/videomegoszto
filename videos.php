@@ -87,9 +87,6 @@ if(isset($_POST["delete_comment_admin"])){
             }
         }
     </script>
-	<script type="text/javascript">
-	$(".myselect").select2();
-	</script>
 	
 	
 	<div class="oszlopok8">
@@ -138,9 +135,11 @@ if(isset($_POST["delete_comment_admin"])){
                         }
                         ?>
 						
-						
+					<?php if(isset($_SESSION["user"])) { ?>
 					<button class="btn" onclick = "document.getElementById('addtolist').style.display='block'" style="width:40px;height:40px"><i class="fa fa-bars"></i></button>
-                    </div>
+					<?php } else {} ?> 
+						
+					</div>
 					<p id="felhaszn-megjegyzes" onclick="megjelen(this)">Több</p>
 					<div class="usermegjegyzes" id="usermegjegyzes">
 					

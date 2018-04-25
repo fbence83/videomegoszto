@@ -1,0 +1,67 @@
+.haromoszlop {
+	margin-top:30px;
+	display:flex;
+}
+
+.adatok30 {
+	flex:30%
+}
+
+.aktualizalas {
+	flex: 30%;
+}
+
+.profilepic {
+	flex:40%;
+}
+
+table {
+   /* border-collapse: collapse;*/
+   /* border-spacing: 0;*/
+    width: 100%;
+    /*border: 1px solid #ddd;*/
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+h4 {
+	text-align:center;
+	font-family:arial;
+	font-weight:bold;
+}
+.jobbra {
+	text-align:right;
+}
+
+.valtoztat {
+	margin-left:10%;
+	width:80%;
+	padding-top:4px;
+	margin-top:10px;
+}
+
+.modifybutton {
+	margin-left:20%;
+	width:60%;
+}
+
+.profilkep {
+	height:230px;
+	
+	width:100%;
+}
+
+.changebtn {
+	margin:40px;
+}
+
+.kep-gombok {
+	
+}
+
+.labelnek {
+	display:inline;
+}

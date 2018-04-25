@@ -80,66 +80,76 @@ if(isset($_POST["upload"])){
     <div class="main">
         <div class ="felhasz">
             <h2><?php echo $nev; ?> </h2>
-            <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
+           <!-- <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>-->
         </div>
-        <div class="adatok">
+		<div class="haromoszlop">
+		
+        <div class="adatok30">
             <h4>Adatok</h4>
             <table>
                 <tr>
                     <td>Felhasználónév:</td>
-                    <td><label><?php echo $userarray[0]; ?></label></td>
+                    <td class="jobbra"><label><?php echo $userarray[0]; ?></label></td>
                 </tr>
                 <?php if($nev == $_SESSION["user"][0]){ ?>
                 <tr>
                     <td>Jelszó:</td>
-                    <td><label><?php echo $userarray[1]; ?></label></td>
+                    <td class="jobbra"><label><?php echo $userarray[1]; ?></label></td>
                 </tr>
                 <?php } ?>
                 <tr>
                     <td>Email cím:</td>
-                    <td><label><?php echo $userarray[2]; ?></label></td>
+                    <td class="jobbra"><label><?php echo $userarray[2]; ?></label></td>
                 </tr>
                 <?php if(!ADMIN){ ?>
                 <tr>
                     <td>Születési idő:</td>
-                    <td><label><?php echo $userarray[3]; ?></label></td>
+                    <td class="jobbra"><label><?php echo $userarray[3]; ?></label></td>
                 </tr>
                 <tr>
                     <td>Nem:</td>
-                    <td><label><?php echo $userarray[4]; ?></label></td>
+                    <td class="jobbra"><label><?php echo $userarray[4]; ?></label></td>
                 </tr>
                 <?php } ?>
             </table>
         </div>
+		<div class="aktualizalas">
         <?php if($nev == $_SESSION["user"][0]){ ?>
         <div class="jelszo">
             <form method="post">
-                <table>
-                    <tr><td><input type="password" name="oldpass" placeholder="Régi jelszó" /> </td></tr>
-                    <tr><td><input type="password" name="password" placeholder="Jelszó"/></td></tr>
-                    <tr><td><input type="password" name="password2" placeholder="Jelszó újra"/></td></tr>
-                    <tr><td><button type="submit" name="modify_pass">Módosít</button></td></tr>
-                </table>
+               <input type="password" name="oldpass" placeholder="Régi jelszó" class="valtoztat" />
+               <input type="password" name="password" placeholder="Jelszó" class="valtoztat"/>
+               <input type="password" name="password2" placeholder="Jelszó újra" class="valtoztat"/>   
             </form>
+				<button type="submit" name="modify_pass" class="modifybutton">Módosít</button>
+			
         </div>
             <div class="email">
                 <form method="post">
-                    <table>
-                        <tr><td><input type="email" name="email" placeholder="E-mail cím"/></td></tr>
-                        <tr><td><button type="submit" name="modify_email">Módosít</button></td></tr>
-                    </table>
+                    <input type="email" name="email" placeholder="E-mail cím" class="valtoztat"/>
                 </form>
+				<button type="submit" name="modify_email" class="modifybutton">Módosít</button>
             </div>
+			</div>
+			
             <?php if(!ADMIN){ ?>
             <div class="profilepic">
-                <img src="img/<?php echo $userarray[5]; ?>" id="avatar" style="width:200px;height:200px;">
+				<form method="post" enctype="multipart/form-data">
+			<div class="profilkep">
+                <img src="img/<?php echo $userarray[5]; ?>" id="avatar" style="width:200px;height:200px;" >
+				<button type="submit" name="upload" class="changebtn">Csere</button>
+			</div>
+			<div class="kep-gombok">
                 <form method="post" enctype="multipart/form-data">
-                    <label for="image">Kép:</label><input type="file" id="image" name="image"  accept=".jpg, .jpeg, .png" multiple>
-                    <button type="submit" name="upload" >Csere</button>
-                </form>
+                    <label for="image" class="labelnek">Kép:</label>
+					<input type="file" id="image" name="image"  accept=".jpg, .jpeg, .png" multiple>
+                    
+			</div>
+			</form>
             </div>
                 <?php } ?>
         <?php } ?>
+		</div>
     </div>
 </div>
 <?php
