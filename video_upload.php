@@ -48,13 +48,13 @@ $categories = array_unique($categories);
 
         <?php include ("menu.php"); ?>
         <div class="main">
-            <div class ="felhasz">
-                <h2><?php echo $nev; ?> </h2>
+            <div class ="felhaszn3">
+                <h2>Video Feltöltés </h2>
                 <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
             </div>
-            <div class="feltöltés">
-                <h4>Videó feltöltése</h4>
-                <form method="post">
+			
+            <div class="feltoltes4">
+                <form method="post" class="aktual">
                     <table>
                         <tr><td><label for="link">Link:</label><input type="text" id="link" name="link"/></td></tr>
                         <tr><td><label for="cim">Cím:</label><input type="text" id="cim" name="cim"/></td></tr>
@@ -67,6 +67,7 @@ $categories = array_unique($categories);
                     </table>
                 </form>
             </div>
+			
         </div>
     </div>
 
