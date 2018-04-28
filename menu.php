@@ -1,9 +1,6 @@
 <div class= "side-menubar">
     <div class="side-menubar1">
-        <p>Listák</p>
-        <a href="#">Felkapott</a>
-        <a href="#">Népszerűek</a>
-        <a href="#">Listák</a>
+        
     </div>
     <hr>
     <div class="side-menubar1">
