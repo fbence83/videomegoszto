@@ -62,10 +62,10 @@ if(isset($_POST["delete_comment"])){
 
 //komment törlés admin
 if(isset($_POST["delete_comment_admin"])){
-    $comment = $_POST["comment"];
-    $user = $_POST["user"];
-    $link = $_POST["link"];
-    $date = $_POST["date"];
+    $comment = $_POST["comment2"];
+    $user = $_POST["user2"];
+    $link = $_POST["link2"];
+    $date = $_POST["date2"];
 
     $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR='$date' AND KOMMENT='$comment'";
     $stmt = oci_parse($conn, $q);
@@ -232,11 +232,11 @@ window.onclick = function(event) {
                                                 }
                                             }if(ADMIN){ ?>
                                             <form action="" method="post">
-                                                <input type="hidden" value="<?php echo $row["FELHASZNALONEV"]; ?>" name="user">
-                                                <input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link">
-                                                <input type="hidden" value="<?php echo $row["MIKOR"]; ?>" name="date">
-                                                <input type="hidden" value="<?php echo $row["KOMMENT"];?>" name="comment">
-												<button type="submit" name="delete_comment">Törlés</button>
+                                                <input type="hidden" value="<?php echo $row["FELHASZNALONEV"]; ?>" name="user2">
+                                                <input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link2">
+                                                <input type="hidden" value="<?php echo $row["MIKOR"]; ?>" name="date2">
+                                                <input type="hidden" value="<?php echo $row["KOMMENT"];?>" name="comment2">
+												<button type="submit" name="delete_comment_admin">Törlés</button>
                                             </form>
                                             <?php } ?>
                                         </td>
