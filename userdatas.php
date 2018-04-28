@@ -122,16 +122,16 @@ if(isset($_POST["upload"])){
             <form method="post" class="aktual" action="">
                <input type="password" name="oldpass" placeholder="Régi jelszó" class="valtoztat" />
                <input type="password" name="password" placeholder="Jelszó" class="valtoztat"/>
-               <input type="password" name="password2" placeholder="Jelszó újra" class="valtoztat"/>   
+               <input type="password" name="password2" placeholder="Jelszó újra" class="valtoztat"/>
+                <button type="submit" name="modify_pass" class="modifybutton">Módosít</button>
             </form>
-				<button type="submit" name="modify_pass" class="modifybutton">Módosít</button>
 			
         </div>
             <div class="email">
                 <form method="post" class="aktual" action="">
                     <input type="email" name="email" placeholder="E-mail cím" class="valtoztat"/>
+                    <button type="submit" name="modify_email" class="modifybutton">Módosít</button>
                 </form>
-				<button type="submit" name="modify_email" class="modifybutton">Módosít</button>
             </div>
 			</div>
 			
