@@ -20,7 +20,11 @@ include('functions.php');
                 <div class = "videonak5">
                     <?php $konvertal = konvertal480($row["LINK"]); ?>
                     <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+					<div class="tarto">
                         <img src="<?php echo $konvertal ?>"></a>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:70px; height:70px;"></a>
+					</div>
                 </div>
                 <div class = "cim-es-adatok5">
                     <a href= "videos.php?id=<?php echo $row["CIM"] ?>  "> <?php echo $row["CIM"] ?></a>
@@ -30,7 +34,8 @@ include('functions.php');
 
             </div>
         <?php } ?>
-
+		
+			
     </div>
 </div>
 <?php 
