@@ -1,0 +1,10 @@
+.2reszre{
+	display:flex;
+}
+.feltoltes4 {
+	flex:60%;
+}
+
+.elovideo {
+	flex:40%;
+}
