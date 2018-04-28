@@ -6,6 +6,11 @@
 -- Az adatbázist létrehozó script          					--
 --------------------------------------------------------------
 
+
+
+
+
+
 ALTER SESSION SET NLS_DATE_LANGUAGE = ENGLISH;
 ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY';
 
@@ -33,23 +38,23 @@ INSERT INTO Felhasznalok VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 'a
 
 CREATE TABLE Videok
 (link				VARCHAR2(2000) NOT NULL,
-cim					VARCHAR2(100) NOT NULL,
+cim					VARCHAR2(200) NOT NULL,
 kategoria			VARCHAR2(20) NOT NULL,
 feltoltes_ideje		DATE NOT NULL,
 megtekintesek_szama NUMBER(10) DEFAULT 0 NOT NULL,
 felhasznalonev		VARCHAR2(20) NOT NULL,
-CONSTRAINT Videok_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev),
+CONSTRAINT Videok_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev) ON DELETE CASCADE,
  CONSTRAINT Videok_PRIMARY_KEY PRIMARY KEY (link));
 
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=jadtGMYYZBg', 'Kowalsky meg a Vega - Hála végre', 'Zene', '28-MAR-2017', 2152, 'NagyJozsef1');
-INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=l7ZlSHGFfdc', 'FatBoy Slim - Valami ', 'Zene', '28-MAR-2017', 123, 'Beluska1995');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=l7ZlSHGFfdc', 'FatBoy Slim - Valami', 'Zene', '28-MAR-2017', 123, 'Beluska1995');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=BLyHWIXTrlI', 'Basshunter - DoTa', 'Zene', '27-MAR-2017', 242400, 'NagyJozsef1');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=5y_KJAg8bHI', 'Avicii- Wake me Up', 'Zene', '27-MAR-2017', 1020200, '3l3m3r63');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=jUqRAUxip4U', 'How to charleston', 'Dance', '28-MAR-2017', 120, '1984Kati');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=V3ucBTI-f5s', 'How to Jive', 'Dance', '26-MAR-2018', 945, '1984Kati');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=kZndWyRz-28', 'Top 5 viking weapons', 'History', '21-FEB-2017', 242400, 'KovacsBela01');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=D9ioyEvdggk', 'Stairway to Heaven - Led Zeppelin', 'Zene', '25-MAR-2017', 243213, '2good4you');
-INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=1w7OgIMMRc4', 'Guns and Roses - Sweet Child O mine', 'Zene', '24-MAR-2017', 12734, '2good4you');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=1w7OgIMMRc4', 'Guns and Roses - Sweet Child O mine', 'Zene', '24-MAR-2017', 1220734, '2good4you');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=fWo9PAqLiXY', 'Top 10 ten facts about Vikings', 'History', '24-MAR-2017', 11311, 'KovacsBela01');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=pVHKp6ffURY', 'Scatman(ka bla..)', 'Zene', '25-MAR-2017', 115151, '3l3m3r63');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=RRIjnnbGYBw', 'Best MLG montages', 'Fun', '21-MAR-2017', 12, 'xxxnoscopeyyy');
@@ -61,7 +66,7 @@ INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=djV11Xbc914', 'A-Ha -
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=1FC3ve0c8oo', 'Battlefiled 4 Gameplay', 'Gameplay', '20-MAR-2017', 2920, 'xxxnoscopeyyy');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=ugHJMnI_C_E', 'Msfvenom Metasploit Minute', 'IT', '17-FEB-2017', 5670, 'Adatbgyak01');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=RXHN0sGbXfw', 'Independece Day 2 Trailer', 'Trailer', '24-DEC-2017', 4421, 'Beluska1995');
-INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=_qX2_D84r3Y', 'Bosszúállók: Végtelen háború (12E) - hivatalos szinkronizált előzetes #2', 'Trailer', '08-JAN-2018', 197422, 'KovacsBela02');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=_qX2_D84r3Y', 'Bosszúállók: Végtelen háború (12E) - hivatalos szinkronizált előzetes 2', 'Trailer', '08-JAN-2018', 174022, 'KovacsBela02');
 
  
 ALTER SESSION SET NLS_DATE_LANGUAGE = ENGLISH;
@@ -73,8 +78,8 @@ CREATE TABLE Hozzaszolasok
 felhasznalonev		VARCHAR2(20) NOT NULL,
 mikor				DATE NOT NULL,
 komment				VARCHAR2(500) NOT NULL,
-CONSTRAINT Hozzaszolasok_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev),
-CONSTRAINT Hozzaszolasok_FOREIGN_KEY2 FOREIGN KEY (link) REFERENCES Videok (link),
+CONSTRAINT Hozzaszolasok_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev) ON DELETE CASCADE,
+CONSTRAINT Hozzaszolasok_FOREIGN_KEY2 FOREIGN KEY (link) REFERENCES Videok (link) ON DELETE CASCADE,
 CONSTRAINT Hozzaszolasok_PRIMARY_KEY PRIMARY KEY (felhasznalonev, link, mikor, komment));
 
 
@@ -112,13 +117,13 @@ CREATE TABLE ListabanVan
 (link	VARCHAR2(2000) NOT NULL,
 felhasznalonev				VARCHAR2(20) NOT NULL,
 lista_neve			VARCHAR2(20) NOT NULL,
-CONSTRAINT ListabanVan_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev),
-CONSTRAINT ListabanVan_FOREIGN_KEY2 FOREIGN KEY (link) REFERENCES Videok (link),
+CONSTRAINT ListabanVan_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev) ON DELETE CASCADE,
+CONSTRAINT ListabanVan_FOREIGN_KEY2 FOREIGN KEY (link) REFERENCES Videok (link) ON DELETE CASCADE,
 CONSTRAINT ListabanVan_PRIMARY_KEY PRIMARY KEY (felhasznalonev, link, lista_neve));
 
 
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=BLyHWIXTrlI', 'NagyJozsef1', 'hetvegere');
-INSERT INTO LisaabanVan VALUES('https://www.youtube.com/watch?v=l7ZlSHGFfdc', 'jAnCsIaKiRaLy', 'muzsika');
+INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=l7ZlSHGFfdc', 'jAnCsIaKiRaLy', 'muzsika');
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=_qX2_D84r3Y', '3l3m3r63', 'sajatKedvenc');
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=RXHN0sGbXfw', '3l3m3r63', 'Dorikanak');
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=V3ucBTI-f5s', 'Beluska1995', 'Tanulashoz');
@@ -137,7 +142,7 @@ INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=V3ucBTI-f5s', 'N
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=RXHN0sGbXfw', 'NagyJozsef1', 'hetvegere');
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=QHYuuXPdQNM', 'NagyJozsef1', 'Péntek-esti');
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=_qX2_D84r3Y', 'NagyJozsef1', 'hetvegere');
-INSERT INTO LisaabanVan VALUES('https://www.youtube.com/watch?v=l7ZlSHGFfdc', 'NagyJozsef1', 'hetvegere');
+INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=l7ZlSHGFfdc', 'NagyJozsef1', 'hetvegere');
 INSERT INTO ListabanVan VALUES('https://www.youtube.com/watch?v=kZndWyRz-28', 'NagyJozsef1', 'Péntek-esti');
 
 
@@ -145,8 +150,8 @@ CREATE TABLE Megtekint
 (link				VARCHAR2(2000) NOT NULL,
 felhasznalonev 	VARCHAR2(20) NOT NULL,
 megtekintes_ideje	DATE NOT NULL,
-CONSTRAINT Megtekint_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev),
-CONSTRAINT Megtekint_FOREIGN_KEY2 FOREIGN KEY (link) REFERENCES Videok (link),
+CONSTRAINT Megtekint_FOREIGN_KEY FOREIGN KEY (felhasznalonev) REFERENCES Felhasznalok (felhasznalonev) ON DELETE CASCADE,
+CONSTRAINT Megtekint_FOREIGN_KEY2 FOREIGN KEY (link) REFERENCES Videok (link) ON DELETE CASCADE,
 CONSTRAINT Megtekint_PRIMARY_KEY PRIMARY KEY (felhasznalonev,link, megtekintes_ideje));
 
 
@@ -185,9 +190,9 @@ INSERT INTO Megtekint VALUES('https://www.youtube.com/watch?v=fWo9PAqLiXY', 'Ada
 
 
 CREATE TABLE Cimkek
-(link 				VARCHAR2(2000) NOT NULL,
+(link				VARCHAR2(2000) NOT NULL,
 cimke				VARCHAR2(20) NOT NULL,
-CONSTRAINT Cimkek_FOREIGN_KEY FOREIGN KEY (link) REFERENCES Videok (link),
+CONSTRAINT Cimkek_FOREIGN_KEY FOREIGN KEY (link) REFERENCES Videok (link) ON DELETE CASCADE,
 CONSTRAINT Cimkek_PRIMARY_KEY PRIMARY KEY (cimke,link));
 
 INSERT INTO Cimkek VALUES('https://www.youtube.com/watch?v=BLyHWIXTrlI', 'csapatos');
