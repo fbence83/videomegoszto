@@ -3,6 +3,19 @@ session_name("video");
 include('functions.php');
     include('header.php');
 $uname = $_GET["id"];
+
+if (isset($_POST["itemdelete"])){
+	echo 'fasza';
+	$vidi = $_POST["link"];
+	$name = $uname;
+	$lista = $_POST["list"];
+	$q = "DELETE from ListabanVan where link = '$vidi' and felhasznalonev  ='$name' and lista_neve = '$lista'";
+	$stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+	echo 'fasza';
+}
+
+
 ?>
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -64,56 +77,47 @@ $uname = $_GET["id"];
 								<li class="videolista">
 									<div class="haromresz">
 									
-									<?php if(isset($_SESSION["user"])){ ?>
+									<?php if(isset($_SESSION["user"])){
+										if ($_SESSION["user"][0] == $uname){
+									?>
 									
 									<div class="közep">
-										<button class="kozepbtn"><i class="fa fa-close"></i></button>
-									</div>	
-									<div class="bal1">
-									<a href="videos.php?id=<?php echo $vid ?>">
-									<?php $thumbnail = konvertal($vid); ?>
-									<img src="<?php echo $thumbnail ?>" class="img-responsive" height="130px" />
-									</a>
-									</div>
-									<div class="jobb1">
-										<?php	
-										$stmt3 = oci_parse($conn,"Select * from videok where link = '$vid'");
-										oci_execute($stmt3);
-										while ($row = oci_fetch_assoc($stmt3)) { ?>
-											<p> <?php echo $row["CIM"]  ?> </p>
-											<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
-											<p id="megtekintesekszama6"><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
-											
-										<?php }  ?>
-									</div>
-									<?php } else { ?>
-									<div class="bal1">
-									<a href="videos.php?id=<?php echo $vid ?>">
-									<?php $thumbnail = konvertal($vid); ?>
-									<img src="<?php echo $thumbnail ?>" class="img-responsive" height="130px" />
-									</a>
-									</div>
-									<div class="jobb1">
-										<?php	
-										$stmt3 = oci_parse($conn,"Select * from videok where link = '$vid'");
-										oci_execute($stmt3);
-										while ($row = oci_fetch_assoc($stmt3)) { ?>
-											<p> <?php echo $row["CIM"]  ?> </p>
-											<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
-											<p id="megtekintesekszama6"><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
-											
-										<?php }  ?>
+										<form action="" method="post">
+										<input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link">
+                                        <input type="hidden" value="<?php echo $list;?>" name="list">
+										<button class="kozepbtn" type="submit" name="itemdelete"><i class="fa fa-close"></i></button>
+										</form>
+										
 									</div>
 									<?php } ?>
-									
-									
-									
+									<div class="bal1">
+									<a href="videos.php?id=<?php echo $vid ?>">
+									<?php $thumbnail = konvertal($vid); ?>
+									</a><div class="tarto">
+									<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+									<img src="<?php echo $thumbnail ?>" class="img-responsive" height="130px" /></a>
+									<a><img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+									</div>
+									</div>
+									<div class="jobb1">
+										<?php	
+										$stmt3 = oci_parse($conn,"Select * from videok where link = '$vid'");
+										oci_execute($stmt3);
+										while ($row = oci_fetch_assoc($stmt3)) { ?>
+											<p> <?php echo $row["CIM"]  ?> </p>
+											<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
+											<p id="megtekintesekszama6"><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+											
+										<?php }  ?>
+									</div>
 									
 									</div>
 								</li>
 							</ul>
 
-						<?php } ?>
+						<?php }
+							}
+						?>
 					</div>
 				</div>
 
