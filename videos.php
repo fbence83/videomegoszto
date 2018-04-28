@@ -6,26 +6,43 @@ if(!isset($_GET['id'])){
 }else if (isset($_GET['id'])) {
 	echo "Link: " .$_GET['id']. "<br>ˇ";
 }
-include('functions.php');
 
+
+include('functions.php');
 include('header.php');
-/*if(isset($_POST["list_button"])){
-	$videolink = $vidi;
-	$user = $session["user"][0];
-	$listnev = $_POST["list_name"];
-	$q = "INSERT INTO ListabanVan VALUES('$videolink', '$user', '$listnev')";
+
+if(isset($_POST["list_button"])){
+	$videolink = $_POST["linkes"];
+	$usern = $_POST["user1"];
+	$listnev = $_POST["listname"];
+	$q = "INSERT INTO ListabanVan VALUES('$videolink', '$usern', '$listnev')";
 	$stmt = oci_parse($conn, $q);
     oci_execute($stmt);
+	
 }
 
 if(isset($_POST["list_button1"])){
-	$videolink = $vidi;
-	$user = $session["user"][0];
-	$listnev = $_POST["list_name"];
-	$q = "INSERT INTO ListabanVan VALUES('$videolink', '$user', '$listnev')";
+	$videolink = $_POST["linkes"];
+	$usern = $_POST["user1"];
+	$listnev = $_POST['listname1'];
+	$q = "INSERT INTO ListabanVan VALUES('$videolink', '$usern', '$listnev')";
 	$stmt = oci_parse($conn, $q);
     oci_execute($stmt);
-}*/
+
+}
+
+if(isset($_POST["kommentel"])){
+	$videolink = $_POST["linkes1"];
+	$usern = $_POST["user2"];
+	$komment= $_POST["komment"];
+	$date = date("Y-m-d");	
+	$q = "INSERT INTO HOZZASZOLASOK VALUES('$videolink', '$usern', TO_DATE('$date', 'YY-MM-DD'), '$komment')";
+	$stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+	
+	
+	
+}
 
 
 
@@ -57,25 +74,21 @@ if(isset($_POST["delete_comment_admin"])){
 }
 
 ?>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-	<script src = "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script>
-        function novel(){
+<script>
+function novel(){
             var x = document.getElementById('tobb').innerHTML;
             if (x == 'Több'){
-                document.getElementById('01').style.height = '318%';
+                document.getElementById('01').style.height = '330%';
                 document.getElementById('tobb').innerHTML = 'Vissza';
             }
             else {
-                document.getElementById('01').style.height = '136%';
+                document.getElementById('01').style.height = '140%';
                 document.getElementById('tobb').innerHTML = 'Több';
             }
         }
-    </script>
-	
-	<script>
-        function megjelen(id){
+</script>
+<script>
+function megjelen(id){
             var x = id.innerHTML;
             if (x == 'Több'){
                 document.getElementById('usermegjegyzes').style.display = 'block';
@@ -89,6 +102,17 @@ if(isset($_POST["delete_comment_admin"])){
     </script>
 	
 	
+<script>
+var modal = document.getElementById('felugrik');
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
+	
+	
 	<div class="oszlopok8">
         <?php include ("menu.php"); ?>
         <div class="main8">
@@ -99,12 +123,17 @@ if(isset($_POST["delete_comment_admin"])){
                     $stmt1 = oci_parse($conn,"Select * from videok where cim = '$k'");
                     oci_execute($stmt1);
                     $vidi = '';
-                    $views = 0;
 
                     while ($row = oci_fetch_assoc($stmt1)){ ?>
                     <div class= "video8">
 						
-                        <?php echo convertYoutubenagy($row["LINK"]); $vidi = $row["LINK"]; $views = $row["MEGTEKINTESEK_SZAMA"]; ?>
+                        <div class="container3" id="videotbehoz">
+                            <?php $konvertal = konvertal($row["LINK"]);  $vidi=$row["LINK"]?>
+							<div class="tarto">
+                            <img src="<?php echo $konvertal ?>" onclick="document.getElementById('felugrik').style.display='block'" style="width720px;height:480px;">
+							<img src="img/playicon.jpg" class="btn30" onclick="document.getElementById('felugrik').style.display='block'" style="width:80px; height:80px;">
+							</div>
+						</div>
 
                     </div>
                     <hr id = "hr5">
@@ -116,9 +145,9 @@ if(isset($_POST["delete_comment_admin"])){
                     <div class ="iconbar8">
 						<img src="img/default.png" id="kisavatar2" style="width:50px;height:50px;">
                         <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>"><?php echo $row["FELHASZNALONEV"] ?> </a>
-                        <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; ?>
+                        <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; $views = $row["MEGTEKINTESEK_SZAMA"];?>
                         <?php }
-                        $views++;
+                        $views=$views+1;
                         $q = "UPDATE VIDEOK SET MEGTEKINTESEK_SZAMA='$views' WHERE LINK='$vidi'";
                         $stmt = oci_parse($conn, $q);
                         oci_execute($stmt);
@@ -207,7 +236,7 @@ if(isset($_POST["delete_comment_admin"])){
                                                 <input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link">
                                                 <input type="hidden" value="<?php echo $row["MIKOR"]; ?>" name="date">
                                                 <input type="hidden" value="<?php echo $row["KOMMENT"];?>" name="comment">
-                                                <button type="submit" name="delete_comment_admin">Törlés</button>
+												<button type="submit" name="delete_comment">Törlés</button>
                                             </form>
                                             <?php } ?>
                                         </td>
@@ -222,8 +251,10 @@ if(isset($_POST["delete_comment_admin"])){
                     <?php if(!ADMIN){ ?>
                     <p>Megjegyzés</p>
                     <form class="megjegyzes" action="" method="POST">
-                        <input type="text" placeholder="Hozzaszol.." name="search3">
-                        <button type="submit" name="submit"><i class="fa fa-search"></i></button>
+						<input type="hidden" value="<?php echo $vidi; ?>" name="linkes1">
+						<input type="hidden" value="<?php echo $user; ?>" name="user2">
+                        <input type="text" placeholder="Hozzaszol.." name="komment">
+                        <button type="submit" name="kommentel"><i class="fa fa-search"></i></button>
                     </form>
                     <?php } ?>
                 </div>
@@ -238,15 +269,20 @@ if(isset($_POST["delete_comment_admin"])){
                 oci_execute($stmt4);
                 while ($row = oci_fetch_assoc($stmt4)){
                     ?>
-                    <div class="container8">
-                        <div class="videonak8">
+                    <div class="container3">
+                        <div class="videonak3">
                             <?php $konvertal = konvertal($row["LINK"]); ?>
                             <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
-                                <img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
-                        </div>
-                        <div class="cim-es-adatok8">
+							<div class="tarto">
+                            <img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+							<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+							<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
+						</div>
+                        <div class="cim-es-adatok3">
                             <h3 class="jah"><?php echo $row["CIM"] ?></h3>
                             <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>" id ="felhaszn"><?php echo $row["FELHASZNALONEV"] ?> </a>
+							<p id=><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
                         </div>
                     </div>
                     <hr>
@@ -263,22 +299,24 @@ if(isset($_POST["delete_comment_admin"])){
 			<h1>Hozzáadás listához</h1>
 			<?php 
 			$user = $_SESSION["user"][0];
+			
 			?>
 			<form action="videos.php" method ="POST">
 			<div class="myselect" style="width:200px;">
-			<select>
+			<select name="listname1">
 				<option value="0">Válassz listát:</option>
 			<?php
-			$szamol=1;
 			$stmt6=oci_parse($conn, "select distinct lista_neve from ListabanVan where felhasznalonev= '$user' ");
                 oci_execute($stmt6);
                 while ($row = oci_fetch_assoc($stmt6)){
                     ?>
 			
-				<option value="<?php echo $szamol ?>"><?php echo $row["LISTA_NEVE"] ?></option>
-				<?php $szamol++;
+				<option value="<?php echo $row["LISTA_NEVE"] ?>"><?php echo $row["LISTA_NEVE"] ?></option>
+				<?php 
 				} ?>
 			</select>
+			<input type="hidden" value="<?php echo $vidi; ?>" name="linkes">
+            <input type="hidden" value="<?php echo $user; ?>" name="user1">
 			<button type="submit" id="submitlist1" name="list_button1" class="submitbutton">Listába!</button>
 				</div>
 				</form>
@@ -287,11 +325,20 @@ if(isset($_POST["delete_comment_admin"])){
 			<h1>Új lista létrehozása</h1>
 			<form class="listaletrehoz" method="POST" action="videos.php">
 			 <p>Adja meg a lejátszási lista nevét</p>
+				<input type="hidden" value="<?php echo $vidi; ?>" name="linkes">
+                <input type="hidden" value="<?php echo $user; ?>" name="user1">
 				<input type="text" placeholder="Lista neve" name="listname" required>
 				<button type="submit" id="submitlist" name="list_button" class="submitbutton">Listába!</button>
 				<button type="button" onclick="document.getElementById('addtolist').style.display='none'" class="cancelbtn10">Cancel</button>
 			<form>
 			</div>
+		</div>
+	</div>
+		
+	<div class="videofelugro" id="felugrik">
+		<button class="close" onclick="document.getElementById('felugrik').style.display='none'"><i class="fa fa-close" ></i></button>
+		<div class="nagyvideo">
+		<?php echo convertYoutubenagy($vidi)?>
 		</div>
 	</div>
 		
