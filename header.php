@@ -9,6 +9,8 @@
     <link rel=stylesheet type="text/css" href="css/user.css" />
 	<link rel=stylesheet type="text/css" href="css/playlist.css"/>
 	<link rel=stylesheet type="text/css" href="css/userdatas.css"/>
+	<link rel=stylesheet type="text/css" href="css/video_upload.css"/>
+	
 	
 
 
