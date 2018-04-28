@@ -7,6 +7,7 @@ if(isset($_POST["login_button"])) {
         echo "Hiba! Üres mező(k)!";
     }else{
         $username = $_POST["uname"];
+        $_SESSION["userpass"] = $_POST["psw"];
         if(!empty($_POST["psw"])){
             $password = md5($_POST["psw"]);
         }
@@ -53,11 +54,6 @@ if(isset($_POST["registration"])){
         oci_execute($stmt);
 
     }
-}
-
-if(isset($_SESSION["uname"])){
-    header("Location: Location: user.php?id=".$username);
-    exit();
 }
 
 include('header.php');

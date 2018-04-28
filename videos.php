@@ -128,9 +128,9 @@ window.onclick = function(event) {
                     <div class= "video8">
 						
                         <div class="container3" id="videotbehoz">
-                            <?php $konvertal = konvertal($row["LINK"]);  $vidi=$row["LINK"]?>
+                            <?php $konvertal = konvertal($row["LINK"]);  $vidi=$row["LINK"];?>
 							<div class="tarto">
-                            <img src="<?php echo $konvertal ?>" onclick="document.getElementById('felugrik').style.display='block'" style="width720px;height:480px;">
+                            <img src="<?php echo $konvertal; ?>" onclick="document.getElementById('felugrik').style.display='block'" style="width720px;height:480px;">
 							<img src="img/playicon.jpg" class="btn30" onclick="document.getElementById('felugrik').style.display='block'" style="width:80px; height:80px;">
 							</div>
 						</div>
@@ -138,19 +138,28 @@ window.onclick = function(event) {
                     </div>
                     <hr id = "hr5">
                     <div class ="cim8">
-                        <h2><?php echo $row["CIM"] ?></h2>
-                        <h3 id ="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"]?> megtekintés</h3>
+                        <h2><?php echo $row["CIM"]; ?></h2>
+                        <h3 id ="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"];?> megtekintés</h3>
 
                     </div>
                     <div class ="iconbar8">
 						<img src="img/default.png" id="kisavatar2" style="width:50px;height:50px;">
-                        <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>"><?php echo $row["FELHASZNALONEV"] ?> </a>
+                        <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"]; ?>"><?php echo $row["FELHASZNALONEV"]; ?> </a>
                         <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; $views = $row["MEGTEKINTESEK_SZAMA"];?>
                         <?php }
                         $views=$views+1;
                         $q = "UPDATE VIDEOK SET MEGTEKINTESEK_SZAMA='$views' WHERE LINK='$vidi'";
                         $stmt = oci_parse($conn, $q);
                         oci_execute($stmt);
+
+                        if(isset($_SESSION["user"])) {
+                            $username = $_SESSION["user"][0];
+                            $date = date("Y-m-d");
+                            $q2 = "INSERT INTO MEGTEKINT (LINK, FELHASZNALONEV, MEGTEKINTES_IDEJE) VALUES ('$vidi', $username, TO_DATE($date, 'YY-MM-DD'))";
+                            var_dump($q2);
+                            $stmt2 = oci_parse($conn, $q2);
+                            oci_execute($stmt2);
+                        }
 
                         //hozzászólás felviele db-be
                         if(isset($_POST["submit"])){
@@ -162,6 +171,7 @@ window.onclick = function(event) {
                             oci_execute($stmt);
 
                         }
+
                         ?>
 						
 					<?php if(isset($_SESSION["user"])) { ?>

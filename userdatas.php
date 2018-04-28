@@ -18,7 +18,7 @@ if($rows = oci_fetch_array($stmt)){
 if(isset($_POST["modify_pass"])) {
     if (empty($_POST["oldpass"])) {
         echo "Nem adtad meg a régi jelszót!";
-    } else if ($_POST["oldpass"] != $_SESSION["user"][1]) {
+    } else if (md5($_POST["oldpass"]) != $_SESSION["user"][1]) {
         echo "Rossz jelszót adtál meg!";
     } else {
         if ($_POST['password'] != $_POST['password2']) {
@@ -26,12 +26,13 @@ if(isset($_POST["modify_pass"])) {
         } else if (empty($_POST["password"]) || empty($_POST["password2"])) {
             echo "Hiba! Üres mező(k)!";
         } else {
-            $pass = $_POST["password"];
+            $pass = md5($_POST["password"]);
             $uname = $_SESSION["user"][0];
 
             $q = "UPDATE FELHASZNALOK SET JELSZO='$pass' WHERE FELHASZNALONEV='$uname'";
             $stmt = oci_parse($conn, $q);
             oci_execute($stmt);
+            $_SESSION["userpass"] = $_POST["password"];
         }
     }
 }
@@ -44,6 +45,7 @@ if(isset($_POST["modify_email"])){
         $old = $_SESSION["user"][0];
 
         $q = "UPDATE FELHASZNALOK SET EMAIL='$email' WHERE FELHASZNALONEV='$old'";
+        var_dump($q);
         $stmt = oci_parse($conn, $q);
         oci_execute($stmt);
     }
@@ -94,7 +96,7 @@ if(isset($_POST["upload"])){
                 <?php if($nev == $_SESSION["user"][0]){ ?>
                 <tr>
                     <td>Jelszó:</td>
-                    <td class="jobbra"><label><?php echo $userarray[1]; ?></label></td>
+                    <td class="jobbra"><label><?php echo $_SESSION["userpass"]; ?></label></td>
                 </tr>
                 <?php } ?>
                 <tr>
@@ -117,7 +119,7 @@ if(isset($_POST["upload"])){
 		<div class="aktualizalas">
         
         <div class="jelszo">
-            <form method="post" class="aktual">
+            <form method="post" class="aktual" action="">
                <input type="password" name="oldpass" placeholder="Régi jelszó" class="valtoztat" />
                <input type="password" name="password" placeholder="Jelszó" class="valtoztat"/>
                <input type="password" name="password2" placeholder="Jelszó újra" class="valtoztat"/>   
@@ -126,7 +128,7 @@ if(isset($_POST["upload"])){
 			
         </div>
             <div class="email">
-                <form method="post" class="aktual">
+                <form method="post" class="aktual" action="">
                     <input type="email" name="email" placeholder="E-mail cím" class="valtoztat"/>
                 </form>
 				<button type="submit" name="modify_email" class="modifybutton">Módosít</button>
