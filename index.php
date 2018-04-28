@@ -103,7 +103,91 @@ include('header.php');
 
     <?php include ("menu.php"); ?>
 		<div class="main3">
-
+			
+			
+				
+					<div class="oszlopos">
+						<div class="legnezetebbvideo">
+						<h2 class="fejlec">Legnézettebb videó</h2>
+						<?php
+						$stmt = oci_parse($conn,"select * from (Select * from videok order by MEGTEKINTESEK_SZAMA desc)where rownum =1");
+							oci_execute($stmt);
+				
+							while ($row = oci_fetch_assoc($stmt)) {?>
+						
+						<div class="container-legnezetebb">
+					<div class="videonak3">
+						<?php $konvertal = konvertal($row["LINK"]); ?>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<div class="tarto">
+						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
+					 </div>
+					<div class="cim-es-adatok3">
+					<h3><?php echo $row["CIM"] ?></h3>
+					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
+					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+						</div>
+						</div>
+							<?php } 
+							?>
+						
+						</div>
+						<div class="legtobbetfeltolto">
+						<h2 class="fejlec">Legaktívabb feltöltő</h2>
+						<?php 
+						$stmt3 = oci_parse($conn,"Select * from felhasznalok where felhasznalonev = (select felhasznalonev from (select felhasznalonev from videok group by felhasznalonev  order by COUNT(link) DESC) where rownum = 1)");
+							oci_execute($stmt3);
+				
+							while ($row = oci_fetch_assoc($stmt3)) {?>
+							<div class="tarolo">
+							<div class="profilkep-tarolo">
+								<img src="img/<?php echo $row["KEP"] ?>"  style="width:200px;height:200px;">
+								
+							</div>
+							<div class="adatok-tarolo">
+								<a href = "user.php?id=<?php echo $row["FELHASZNALONEV"]; ?>"> <?php echo $row["FELHASZNALONEV"]; ?></a>
+							<?php
+							$stmt31 = oci_parse($conn,"select * from (select * from (select felhasznalonev, COUNT(link)from videok group by felhasznalonev  order by COUNT(link) DESC)) where rownum = 1");
+							oci_execute($stmt31);
+				
+							while ($row = oci_fetch_assoc($stmt31)) {?>	
+								<p><?php echo $row["COUNT(LINK)"] ?> Feltöltés</p>
+							<?php } ?>
+							</div>	
+							</div>
+						</div>
+							<?php } ?>
+						<div class="legaktivabbkomment">
+						 <h2 class="fejlec">Legaktívabb hozzászóló</h2>
+						<?php
+						$stmt6 = oci_parse($conn,"select * from felhasznalok where felhasznalonev = (select * from (select felhasznalonev from hozzaszolasok group by felhasznalonev  order by COUNT(link) DESC) where rownum = 1)");
+							oci_execute($stmt6);
+				
+							while ($row = oci_fetch_assoc($stmt6)) {?>
+							<div class="tarolo">
+							<div class="profilkep-tarolo">
+								<img src="img/<?php echo $row["KEP"] ?>"  style="width:200px;height:200px;">
+								
+							</div>
+							<div class="adatok-tarolo">
+								<a href = "user.php?id=<?php echo $row["FELHASZNALONEV"]; ?>"> <?php echo $row["FELHASZNALONEV"]; ?></a>
+								<?php
+							$stmt61 = oci_parse($conn,"select * from (select * from (select felhasznalonev, COUNT(link)from hozzaszolasok group by felhasznalonev  order by COUNT(link) DESC)) where rownum = 1");
+							oci_execute($stmt61);
+				
+							while ($row = oci_fetch_assoc($stmt61)) {?>	
+								<p><?php echo $row["COUNT(LINK)"] ?> Hozzászólás</p>
+							<?php } ?>
+							</div>	
+							</div>
+						
+						
+							<?php } ?>
+							</div>
+						</div>
 
 
 
@@ -123,14 +207,20 @@ include('header.php');
 				
 				<div class="container3">
 					<div class="videonak3">
+					<div class="tarto">
 						<?php $konvertal = konvertal($row["LINK"]); ?>
+					</div>
 						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<div class="tarto">
 						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
 					 </div>
 					<div class="cim-es-adatok3">
 					<h3><?php echo $row["CIM"] ?></h3>
 					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
-					<p id="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
 						</div>
 				</div>
 				<?php } 
@@ -158,12 +248,16 @@ include('header.php');
 					<div class="videonak3">
 						<?php $konvertal = konvertal($row["LINK"]); ?>
 						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<div class="tarto">
 						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						 </div>
 					 </div>
 					<div class="cim-es-adatok3">
 					<h3><?php echo $row["CIM"] ?></h3>
 					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
-					<p id="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
 						</div>
 				</div>
 				<?php } 
@@ -190,12 +284,16 @@ include('header.php');
 					<div class="videonak3">
 						<?php $konvertal = konvertal($row["LINK"]); ?>
 						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<div class="tarto">
 						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
 					 </div>
 					<div class="cim-es-adatok3">
 					<h3><?php echo $row["CIM"] ?></h3>
 					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
-					<p id="megtekintesekszama"><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
 						</div>
 				</div>
 				<?php } 
