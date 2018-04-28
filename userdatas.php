@@ -78,9 +78,9 @@ if(isset($_POST["upload"])){
 
     <?php include ("menu.php"); ?>
     <div class="main">
-        <div class ="felhasz">
+        <div class ="felhaszn3">
             <h2><?php echo $nev; ?> </h2>
-           <!-- <a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>-->
+			<a href="user.php?id=<?php echo $nev; ?>">Vissza az előző oldalra</a>
         </div>
 		<div class="haromoszlop">
 		
@@ -113,10 +113,11 @@ if(isset($_POST["upload"])){
                 <?php } ?>
             </table>
         </div>
+		 <?php if($nev == $_SESSION["user"][0]){ ?>
 		<div class="aktualizalas">
-        <?php if($nev == $_SESSION["user"][0]){ ?>
+        
         <div class="jelszo">
-            <form method="post">
+            <form method="post" class="aktual">
                <input type="password" name="oldpass" placeholder="Régi jelszó" class="valtoztat" />
                <input type="password" name="password" placeholder="Jelszó" class="valtoztat"/>
                <input type="password" name="password2" placeholder="Jelszó újra" class="valtoztat"/>   
@@ -125,7 +126,7 @@ if(isset($_POST["upload"])){
 			
         </div>
             <div class="email">
-                <form method="post">
+                <form method="post" class="aktual">
                     <input type="email" name="email" placeholder="E-mail cím" class="valtoztat"/>
                 </form>
 				<button type="submit" name="modify_email" class="modifybutton">Módosít</button>
@@ -137,12 +138,13 @@ if(isset($_POST["upload"])){
 				<form method="post" enctype="multipart/form-data">
 			<div class="profilkep">
                 <img src="img/<?php echo $userarray[5]; ?>" id="avatar" style="width:200px;height:200px;" >
-				<button type="submit" name="upload" class="changebtn">Csere</button>
+				
 			</div>
 			<div class="kep-gombok">
                 <form method="post" enctype="multipart/form-data">
                     <label for="image" class="labelnek">Kép:</label>
 					<input type="file" id="image" name="image"  accept=".jpg, .jpeg, .png" multiple>
+					<button type="submit" name="upload" class="changebtn">Csere</button>
                     
 			</div>
 			</form>
