@@ -111,6 +111,11 @@ hr {
 
 .haromresz {
 	display:flex;
+	
+}
+
+.bal1:hover{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .kozep {
@@ -128,14 +133,13 @@ hr {
 
 .bal1 {
 	padding:10px;
-	flex:50%;
+	flex:40%;
 	
 }
 
 .jobb1 {
 	padding:10px;
 	font-family:arial;
-	
 	flex:40%;
 }
 

@@ -49,16 +49,21 @@
 	display:flex;
 }
 .videonak5 {
-	
-	padding:20px;
-	flex:40%;
+	border-radius:4px;
+	margin-left:5px;
+	padding:10px;
+	flex:35%;
+}
+
+.videonak5:hover{
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .cim-es-adatok5{
 	flex:50%;
 	
 }
 .cim-es-adatok5 a {
-	color:white;
+	color:black;
 	display:block;
 	padding:40px;
 	font-family:arial;
@@ -69,3 +74,5 @@
 hr {
 	margin-right:30px;
 }
+
+

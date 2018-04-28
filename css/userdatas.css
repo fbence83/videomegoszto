@@ -2,7 +2,23 @@
 	margin-top:30px;
 	display:flex;
 }
+.felhaszn3 {
+	padding-top:10px;
+}
 
+.felhaszn3 h2{
+	padding:15px;
+	font-size: 24px;
+	margin-left:42%;
+	text-align:center;
+	display:inline;
+}
+
+.felhaszn3 a{
+	text-decoration:none;
+	font-size:20px;
+	float:right;
+}
 .adatok30 {
 	flex:30%
 }
@@ -32,16 +48,44 @@ h4 {
 	font-family:arial;
 	font-weight:bold;
 }
+.adatok30{
+	margin:2px;
+	border-radius:5px;
+	background-color:gray;
+}
+
+.aktualizalas {
+	margin:2px;
+	border-radius:5px;
+	background-color:gray;
+}
+
+.profilepic {
+	margin:2px;
+	border-radius:5px;
+	background-color:gray;
+}
+.aktual input[type=text], .aktual input[type=password], .aktual input[type=email]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+
 .jobbra {
 	text-align:right;
 }
 
-.valtoztat {
+/*.valtoztat {
 	margin-left:10%;
 	width:80%;
 	padding-top:4px;
 	margin-top:10px;
-}
+}*/
 
 .modifybutton {
 	margin-left:20%;

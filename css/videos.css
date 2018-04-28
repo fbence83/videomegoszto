@@ -54,6 +54,7 @@
 	border-radius:10px;
 	height:auto;
 	overflow:hidden;
+	margin-right:2%;
 }
 
 
@@ -205,7 +206,16 @@ form.megjegyzes button {
 	margin-right:10%;
 }
 
-.feltolto-nev8{
+.feltolto-nev8 {
+	width:90%;
+	
+}
+
+.torlesgomb{
+	margin:0px;
+	float:right;
+	display:inline;
+	
 	
 }
 
@@ -229,6 +239,7 @@ form.megjegyzes button {
 }
 
 .feltolto-nev8 p {
+	
 	margin:0px;
 	font-size:12px;
 	color:gray;
@@ -236,37 +247,14 @@ form.megjegyzes button {
 	
 }
 .komment {
+	
 	margin:0px;
 	display:inline-block;	
 	padding:8px 8px 0px 8px;
 	
 }
 
-.container8 {
-	overflow-x:hidden;
-	display:inline-block;
-	padding:5px;
-	background-color:white;
-	margin:5px;
-	
-}
 
-
-.cim-es-adatok8  {
-	padding-left:5px;
-	width:253px;
-}
-.cim-es-adatok8 h3{
-	font-family:arial;
-	display:block;
-	font-weight: bold;
-	font-size:14px;
-	white-space:pre-line;
-	word-wrap:break-word;
-	height:20px;
-	text-decoration:none;
-	color:black;
-}
 #felhaszn{
 	text-decoration:none;
 	color:gray;
@@ -281,7 +269,7 @@ form.megjegyzes button {
 
 .hasonlo {
 	overflow:hidden;
-	height:130%;
+	height:140%;
 }
 
 #tobb {
@@ -368,4 +356,42 @@ form.megjegyzes button {
 #submitlist1 {
 	display:inline-block;
 	width:100%;
+}
+
+
+
+.videofelugro {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    padding:60px 0px 0px 0px;
+}
+
+.nagyvideo {
+	margin-left:21%;
+	margin-right:25%;
+	padding:3px;
+	background-color:white;
+	border-radius:4px;
+}
+
+.close {
+  position: absolute;
+  right: 230px;
+  top: 35px;
+  font-size: 40px;
+  font-weight: bold;
+  background-color:#1a1a1a;
+}
+
+.close:hover,
+.close:focus {
+  cursor: pointer;
 }
