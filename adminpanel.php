@@ -3,6 +3,9 @@ session_name("video");
 
 
 include('functions.php');
+if ($_SESSION["user"][0] == "admin") {
+    $_SESSION["admin"] = true;
+}
 include ('header.php');
 
 

@@ -34,6 +34,7 @@ if(isset($_POST["login_button"])) {
 
 if(isset($_POST["logout_button"])){
     unset($_SESSION["user"]);
+    unset($_SESSION["admin"]);
     session_destroy();
     header("Location: index.php");
     exit();
