@@ -154,9 +154,13 @@ window.onclick = function(event) {
 
                         if(isset($_SESSION["user"])) {
                             $username = $_SESSION["user"][0];
-                            $date = date("Y-m-d");
-                            $q2 = "INSERT INTO MEGTEKINT (LINK, FELHASZNALONEV, MEGTEKINTES_IDEJE) VALUES ('$vidi', $username, TO_DATE($date, 'YY-MM-DD'))";
-                            var_dump($q2);
+                            $date = date("Y-m-d h:i:s");
+							
+							/*$date = date("Y-m-d");	
+							$q = "INSERT INTO HOZZASZOLASOK VALUES('$videolink', '$usern', TO_DATE('$date', 'YY-MM-DD'), '$komment')";*/
+							
+                            $q2 = "INSERT INTO MEGTEKINT (LINK, FELHASZNALONEV, MEGTEKINTES_IDEJE) VALUES ('$vidi', '$username', TO_DATE('$date', 'YY-MM-DD HH24:MI:SS'))";
+                            /*var_dump($q2);*/
                             $stmt2 = oci_parse($conn, $q2);
                             oci_execute($stmt2);
                         }
