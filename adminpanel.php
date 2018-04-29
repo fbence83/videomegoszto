@@ -58,13 +58,13 @@ if (isset($_POST["delete_fiok"])){
 										</div>
 							<hr>
 							<?php
-							$stmt7 = oci_parse($conn,"select COUNT(LINK) from videok where felhasznalonev = '$user'");
+							$stmt7 = oci_parse($conn,"select COUNT(LINK) from videok where felhasznalonev = '$user2'");
 							oci_execute($stmt7);
 							while ($row = oci_fetch_assoc($stmt7)) {?>
 							<p>Összesen <?php echo $row["COUNT(LINK)"] ?> feltöltött videó</p>
 							<?php } ?>
 							<?php
-							$stmt4 = oci_parse($conn,"select COUNT(LINK) from hozzaszolasok where felhasznalonev = '$user'");
+							$stmt4 = oci_parse($conn,"select COUNT(LINK) from hozzaszolasok where felhasznalonev = '$user2'");
 							oci_execute($stmt4);
 							while ($row = oci_fetch_assoc($stmt4)) {?>
 							<p>Összesen <?php echo $row["COUNT(LINK)"] ?> hozzászólás</p>
