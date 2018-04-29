@@ -99,6 +99,20 @@
 	padding:30px 30px 30px 30px;
 }
 .gridcontainer{
+	
+	
+	
+	background-color:white;
+	padding:10px;
+	border-style:solid;
+	border-width:thin;
+	border-radius:4px;
+}
+
+.gridcontainer6{
+	
+	height:300px;
+	overflow-x:scroll;
 	background-color:white;
 	padding:10px;
 	border-style:solid;
@@ -107,16 +121,26 @@
 }
 
 
+
 .Videoi {
+	
+	
 	padding-top:0px;
 	text-align:center;
 }
 
 .Videoi h2 {
-	display:block;
-	padding:2px;
+	
+	display:inline-block	;
+	margin-bottom:10px;
+	
+}
+.Videoi img {
+	cursor:pointer;
+	display:inline;
 }
 .Videoi1{
+	
 	
 }
 
@@ -124,3 +148,6 @@
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.elozmenyek {
+	display:none;
+}
