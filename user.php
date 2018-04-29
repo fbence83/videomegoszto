@@ -6,6 +6,16 @@ include('functions.php');
 if ($_SESSION["user"][0] == "admin") {
     $_SESSION["admin"] = true;
 }
+
+if(($nev == "admin") && ($_SESSION["user"][0] != "admin")){
+    header("Location: adminpanel.php");
+    exit();
+}
+
+if($_SESSION["user"][0] == "admin"){
+    header("Location: adminpanel.php");
+    exit();
+}
 include('header.php');?>
 
 <script>

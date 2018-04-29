@@ -9,6 +9,10 @@ if(!isset($_SESSION["user"])){
     header("Location: index.php");
     exit();
 }
+if($_SESSION["user"][0] != $nev){
+    header("Location: index.php");
+    exit();
+}
 include('header.php');
 
 if(isset($_POST["upload"])){

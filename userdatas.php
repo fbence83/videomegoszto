@@ -4,6 +4,10 @@ session_name("video");
 $nev = $_GET['id'];
 
 include('functions.php');
+if(($nev == "admin") && ($_SESSION["user"][0] != "admin")){
+    header("Location: adminpanel.php");
+    exit();
+}
 include('header.php');
 
 $userarray = array();
