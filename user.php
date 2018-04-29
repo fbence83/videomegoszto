@@ -65,7 +65,7 @@ include('header.php');?>
 					if(isset($_SESSION["user"])){
 						if (($_SESSION["user"][0]) == $nev ) {
 					?>
-					<a href="#">Videói</a>
+					<a href="#" onclick ="document.getElementById('video1').style.display='block'; ">Videói</a>
                 <hr>
                 <a href="video_upload.php?id=<?php echo $nev; ?>">Videó feltöltése</a>
                 <hr>
@@ -73,32 +73,33 @@ include('header.php');?>
                 <hr>
                 <a href="userdatas.php?id=<?php echo $nev; ?>">Adatok</a>
                 <hr>	
-				<a href="" id="előzmények">Előzmények</a>
+				<a href="#" onclick="document.getElementById('elozmeny').style.display='block'; " >Előzmények</a>
 
                 <?php
                 }	else { ?>
-						<a href="#">Videói</a>
+						<a href="#" onclick ="document.getElementById('video1').style.display='block';">Videói</a>
                 <hr>
                 <a href="playlist.php?id=<?php echo $nev; ?>">Lejátszási listák</a>
                 <hr>
                 <a href="userdatas.php?id=<?php echo $nev; ?>">Adatok</a>
                 <hr>	
-				<a href="" id="előzmények">Előzmények</a>
+				<a href="#" onclick="document.getElementById('elozmeny').style.display='block'; " >Előzmények</a>
 				<?php
 						}
 					} else {
 				?>
-				<a href="#">Videói</a>
+				<a href="#" onclick ="document.getElementById('video1').style.display='block';">Videói</a>
                 <hr>
                 <a href="playlist.php?id=<?php echo $nev; ?>">Lejátszási listák</a>
                 <hr>
-				<a href="" id="előzmények">Előzmények</a>
+				<a href="#" onclick="document.getElementById('elozmeny').style.display='block'; " >Előzmények</a>
 					<?php } ?>
             </div>
         </div>
 		<div class="Videoi1" id="video1">
         <div class="Videoi">
             <h2>Videói</h2>
+			<img src = "img/bezaricon.png" onclick ="document.getElementById('video1').style.display='none';" style="height:30px;width:30px;">
         </div>
         <div class = "gridcontainer">
             <?php
@@ -131,24 +132,29 @@ include('header.php');?>
             ?>
         </div>
 		</div>
-		<div class="elozmenyek">
+		<div class="elozmenyek" id ="elozmeny">
 		<div class="Videoi">
             <h2>Előzmények</h2>
+			<img src = "img/bezaricon.png" onclick ="document.getElementById('video1').style.display='none';" style="height:30px;width:30px;">
         </div>
-        <div class = "gridcontainer">
+        <div class = "gridcontainer6">
             <?php
 
-            $stmt2 = oci_parse($conn,"Select *  from megtekint where felhasznalonev = '$nev' order by megtekintes_ideje");
+            $stmt2 = oci_parse($conn,"Select *  from megtekint where felhasznalonev = '$nev' and rownum < 9 order by megtekintes_ideje DESC");
             oci_execute($stmt2);
 			
             while ($row1 = oci_fetch_assoc($stmt2)) {
 			$linkes = $row1["LINK"];
+			
 			$stmt = oci_parse($conn,"Select *  from videok where link = '$linkes' ");
             oci_execute($stmt);
 			
             while ($row = oci_fetch_assoc($stmt)) { ?>
 			
                 <div class="container3">
+				
+				  <?php /* echo date("Y-m-d h:i:s",strtotime($row1["MEGTEKINTES_IDEJE"])) */ ?> 
+			
                     <div class="videonak3">
                         <?php $konvertal = konvertal($row["LINK"]); ?>
 						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
