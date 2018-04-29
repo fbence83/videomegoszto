@@ -17,8 +17,12 @@ if(isset($_POST["login_button"])) {
 
         if ($rows = oci_fetch_array($stmt)) {
             $_SESSION["user"] = (array)$rows;
+			if ($_SESSION["user"][0] == 'admin'){
+				header("Location: adminpanel.php");
+			} else {
             header("Location: user.php?id=" . $username);
             exit();
+			}
         } else {
 			echo $username;
             echo "Hibás felhasználónév vagy jelszó!";
