@@ -62,10 +62,10 @@ if(isset($_POST["delete_comment"])){
 
 //komment törlés admin
 if(isset($_POST["delete_comment_admin"])){
-    $comment = $_POST["comment"];
-    $user = $_POST["user"];
-    $link = $_POST["link"];
-    $date = $_POST["date"];
+    $comment = $_POST["comment2"];
+    $user = $_POST["user2"];
+    $link = $_POST["link2"];
+    $date = $_POST["date2"];
 
     $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR='$date' AND KOMMENT='$comment'";
     $stmt = oci_parse($conn, $q);
@@ -128,9 +128,9 @@ window.onclick = function(event) {
                     <div class= "video8">
 						
                         <div class="container3" id="videotbehoz">
-                            <?php $konvertal = konvertal($row["LINK"]);  $vidi=$row["LINK"]?>
+                            <?php $konvertal = konvertal($row["LINK"]);  $vidi=$row["LINK"];?>
 							<div class="tarto">
-                            <img src="<?php echo $konvertal ?>" onclick="document.getElementById('felugrik').style.display='block'" style="width720px;height:480px;">
+                            <img src="<?php echo $konvertal; ?>" onclick="document.getElementById('felugrik').style.display='block'" style="width720px;height:480px;">
 							<img src="img/playicon.jpg" class="btn30" onclick="document.getElementById('felugrik').style.display='block'" style="width:80px; height:80px;">
 							</div>
 						</div>
@@ -138,19 +138,28 @@ window.onclick = function(event) {
                     </div>
                     <hr id = "hr5">
                     <div class ="cim8">
-                        <h2><?php echo $row["CIM"] ?></h2>
-                        <h3 id ="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"]?> megtekintés</h3>
+                        <h2><?php echo $row["CIM"]; ?></h2>
+                        <h3 id ="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"];?> megtekintés</h3>
 
                     </div>
                     <div class ="iconbar8">
 						<img src="img/default.png" id="kisavatar2" style="width:50px;height:50px;">
-                        <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>"><?php echo $row["FELHASZNALONEV"] ?> </a>
+                        <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"]; ?>"><?php echo $row["FELHASZNALONEV"]; ?> </a>
                         <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; $views = $row["MEGTEKINTESEK_SZAMA"];?>
                         <?php }
                         $views=$views+1;
                         $q = "UPDATE VIDEOK SET MEGTEKINTESEK_SZAMA='$views' WHERE LINK='$vidi'";
                         $stmt = oci_parse($conn, $q);
                         oci_execute($stmt);
+
+                        if(isset($_SESSION["user"])) {
+                            $username = $_SESSION["user"][0];
+                            $date = date("Y-m-d");
+                            $q2 = "INSERT INTO MEGTEKINT (LINK, FELHASZNALONEV, MEGTEKINTES_IDEJE) VALUES ('$vidi', $username, TO_DATE($date, 'YY-MM-DD'))";
+                            var_dump($q2);
+                            $stmt2 = oci_parse($conn, $q2);
+                            oci_execute($stmt2);
+                        }
 
                         //hozzászólás felviele db-be
                         if(isset($_POST["submit"])){
@@ -162,6 +171,7 @@ window.onclick = function(event) {
                             oci_execute($stmt);
 
                         }
+
                         ?>
 						
 					<?php if(isset($_SESSION["user"])) { ?>
@@ -232,11 +242,11 @@ window.onclick = function(event) {
                                                 }
                                             }if(ADMIN){ ?>
                                             <form action="" method="post">
-                                                <input type="hidden" value="<?php echo $row["FELHASZNALONEV"]; ?>" name="user">
-                                                <input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link">
-                                                <input type="hidden" value="<?php echo $row["MIKOR"]; ?>" name="date">
-                                                <input type="hidden" value="<?php echo $row["KOMMENT"];?>" name="comment">
-												<button type="submit" name="delete_comment">Törlés</button>
+                                                <input type="hidden" value="<?php echo $row["FELHASZNALONEV"]; ?>" name="user2">
+                                                <input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link2">
+                                                <input type="hidden" value="<?php echo $row["MIKOR"]; ?>" name="date2">
+                                                <input type="hidden" value="<?php echo $row["KOMMENT"];?>" name="comment2">
+												<button type="submit" name="delete_comment_admin">Törlés</button>
                                             </form>
                                             <?php } ?>
                                         </td>

@@ -9,10 +9,10 @@ $tns = "
     )
   )";
 
-//$username = 'system';
+//$username = 'f_bence83';
 $username = 'Gac_Pet';
 
-//$password = 'root';
+//$password = 'asd';
 $password = '5bsxou30v7s';
 
 $conn = oci_connect($username, $password, $tns, 'UTF8');

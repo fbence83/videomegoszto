@@ -1,14 +1,11 @@
 <?php
 session_name("video");
- 
+
 $nev = $_GET['id'];
 include('functions.php');
-
-
-if($_SESSION["user"][0] == "admin"){
+if ($_SESSION["user"][0] == "admin") {
     $_SESSION["admin"] = true;
 }
-
 include('header.php');?>
 
 <script>
@@ -76,9 +73,10 @@ include('header.php');?>
                 <hr>
                 <a href="userdatas.php?id=<?php echo $nev; ?>">Adatok</a>
                 <hr>	
-				<a href="" id="előzmények">Előzmények</a>	
-						
-						<?php }	else { ?>
+				<a href="" id="előzmények">Előzmények</a>
+
+                <?php
+                }	else { ?>
 						<a href="#">Videói</a>
                 <hr>
                 <a href="playlist.php?id=<?php echo $nev; ?>">Lejátszási listák</a>

@@ -10,6 +10,7 @@
 	<link rel=stylesheet type="text/css" href="css/playlist.css"/>
 	<link rel=stylesheet type="text/css" href="css/userdatas.css"/>
 	<link rel=stylesheet type="text/css" href="css/video_upload.css"/>
+	<link rel=stylesheet type="text/css" href="css/adminpanel.css"/>
 	
 	
 
@@ -68,12 +69,21 @@
             <?php
                 if(isset($_SESSION["user"])){
                     $fioknev = $_SESSION["user"][0];
+					if ($fioknev == 'admin') {
                     ?>
-                    <a href="user.php?id=<?php echo $fioknev; ?>">Fiókom</a>
-                    <form action="index.php" method="post">
-                        <button type="submit" name="logout_button" class="logoutbutton" style="width:auto; display: block">Log Out</button>
+                    <button class="logoutbutton"><a href="adminpanel.php">AdminPanel</a></button>
+					<form action="index.php" method="post">
+                    <button type="submit" name="logout_button" class="logoutbutton" style="width:auto; display: block">Log Out</button>
                     </form>
-                <?php }else{ ?>
+                <?php } else { ?>
+				
+					<button class="logoutbutton"><a href="user.php?id=<?php echo $fioknev; ?>">Fiókom</a></button>
+                    <form action="index.php" method="post">
+                    <button type="submit" name="logout_button" class="logoutbutton" style="width:auto; display: block">Log Out</button>
+                    </form>
+				
+				 <?php } 
+				} else {	?>
                     <button onclick="document.getElementById('id01').style.display='block'"  style="width:auto;">Login</button>
                     <button onclick="document.getElementById('id02').style.display='block'"  style="width:auto;">Register</button>
                 <?php } ?>
