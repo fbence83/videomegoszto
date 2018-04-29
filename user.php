@@ -16,7 +16,17 @@ if($_SESSION["user"][0] == "admin"){
     header("Location: adminpanel.php");
     exit();
 }
-include('header.php');?>
+include('header.php');
+
+if(isset($_POST["del"])){
+    $link = $_POST["del"];
+
+    $q = "DELETE FROM VIDEOK WHERE LINK='$link'";
+    $stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+}
+
+?>
 
 <script>
 
@@ -117,9 +127,11 @@ include('header.php');?>
             $stmt = oci_parse($conn,"Select *  from videok where felhasznalonev = '$nev' order by FELTOLTES_IDEJE");
             oci_execute($stmt);
 
-            while ($row = oci_fetch_assoc($stmt)) {?>
+            while ($row = oci_fetch_assoc($stmt)) {
+                $link = $row["LINK"];
+                ?>
 
-			
+
                 <div class="container3">
                     <div class="videonak3">
                         <?php $konvertal = konvertal($row["LINK"]); ?>
@@ -134,6 +146,11 @@ include('header.php');?>
                         <h3><?php echo $row["CIM"]; ?></h3>
                         <a href="user.php?id=<?php echo $row["FELHASZNALONEV"]; ?> "><?php echo $row["FELHASZNALONEV"]; ?></a>
 						<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+                        <?php if($_SESSION["user"][0] == $nev){ ?>
+                        <form method="post">
+                            <button type="submit" value="<?php echo $link; ?>" name="del">X</button>
+                        </form>
+                        <?php } ?>
                     </div>
                 </div>
             <?php }
