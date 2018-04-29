@@ -26,5 +26,15 @@
                     $( "#tabs" ).tabs();
                 } );
             </script>
+
+            <script>
+                $( function() {
+                    $( "#tabs2" ).tabs({
+                        active: 1
+                    });
+                } );
+            </script>
+
+
     </body>
 </html>
