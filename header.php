@@ -11,11 +11,14 @@
 	<link rel=stylesheet type="text/css" href="css/userdatas.css"/>
 	<link rel=stylesheet type="text/css" href="css/video_upload.css"/>
 	<link rel=stylesheet type="text/css" href="css/adminpanel.css"/>
-	
-	
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
-	
+
+
+
+
     <title>Videomegoszto</title>
 </head>
 <body>

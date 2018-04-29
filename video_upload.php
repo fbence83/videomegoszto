@@ -16,6 +16,7 @@ if($_SESSION["user"][0] != $nev){
 include('header.php');
 
 if(isset($_POST["upload"])){
+    $cime = $_POST["cim"];
     if(empty($_POST["link"]) || empty($_POST["cim"]) || empty($_POST["kategoria"])){
         echo "Hiba! Üres mező(k)!";
     }else{
@@ -25,9 +26,16 @@ if(isset($_POST["upload"])){
         $date = date("Y-m-d");
         $uname = $_SESSION["user"][0];
 
-        $q = "INSERT INTO VIDEOK (LINK, CIM, KATEGORIA, FELTOLTES_IDEJE, FELHASZNALONEV) VALUES ('$link', '$cim', '$kategoria', TO_DATE('$date', 'YY-MM-DD'), '$uname')";
+        if(!empty($_POST["megjegyzes"])){
+            $megjegyzes = $_POST["megjegyzes"];
+            $q = "INSERT INTO VIDEOK (LINK, CIM, KATEGORIA, FELTOLTES_IDEJE, MEGJEGYZES, FELHASZNALONEV) VALUES ('$link', '$cim', '$kategoria', TO_DATE('$date', 'YY-MM-DD'), '$megjegyzes', '$uname')";
+        }else{
+            $q = "INSERT INTO VIDEOK (LINK, CIM, KATEGORIA, FELTOLTES_IDEJE, FELHASZNALONEV) VALUES ('$link', '$cim', '$kategoria', TO_DATE('$date', 'YY-MM-DD'), '$uname')";
+        }
+
         $stmt = oci_parse($conn, $q);
         oci_execute($stmt);
+
     }
 
 }
@@ -58,11 +66,13 @@ $categories = array_unique($categories);
             </div>
 			
             <div class="feltoltes4">
+                <p style="color: red;">A *-al jelölt mezők kitöltése kötelező!</p>
                 <form method="post" class="aktual">
                     <table>
-                        <tr><td><label for="link">Link:</label><input type="text" id="link" name="link"/></td></tr>
-                        <tr><td><label for="cim">Cím:</label><input type="text" id="cim" name="cim"/></td></tr>
-                        <tr><td><label for="kategoria">Kategória:</label><select id="kategoria" name="kategoria">
+                        <tr><td><label for="link">Link*:</label><input type="text" id="link" name="link"/></td></tr>
+                        <tr><td><label for="cim">Cím*:</label><input type="text" id="cim" name="cim"/></td></tr>
+                        <tr><td><label for="megjegyzes">Megjegyzés(opcionális):</label><input type="text" id="megjegyzes" name="megjegyzes"/></td></tr>
+                        <tr><td><label for="kategoria">Kategória*:</label><select id="kategoria" name="kategoria">
                                     <?php foreach ($categories as $one){ ?>
                                         <option value="<?php echo $one; ?>"><?php echo $one; ?></option>
                                     <?php } ?>

@@ -73,7 +73,18 @@ if(isset($_POST["delete_comment_admin"])){
 
 }
 
+//megjegyzés változtatása a videó alatt
+if(isset($_POST["megjegyzes"])){
+    $text = $_POST["text"];
+    $link = $_POST["link"];
+
+    $q = "UPDATE VIDEOK SET MEGJEGYZES='$text' WHERE LINK='$link'";
+    $stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+}
+
 ?>
+
 <script>
 function novel(){
             var x = document.getElementById('tobb').innerHTML;
@@ -123,6 +134,7 @@ window.onclick = function(event) {
                     $stmt1 = oci_parse($conn,"Select * from videok where cim = '$k'");
                     oci_execute($stmt1);
                     $vidi = '';
+                    $megjegyzes = '';
 
                     while ($row = oci_fetch_assoc($stmt1)){ ?>
                     <div class= "video8">
@@ -145,7 +157,7 @@ window.onclick = function(event) {
                     <div class ="iconbar8">
 						<img src="img/default.png" id="kisavatar2" style="width:50px;height:50px;">
                         <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"]; ?>"><?php echo $row["FELHASZNALONEV"]; ?> </a>
-                        <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; $views = $row["MEGTEKINTESEK_SZAMA"];?>
+                        <?php $usern = $row["FELHASZNALONEV"];  $kat = $row["KATEGORIA"]; $views = $row["MEGTEKINTESEK_SZAMA"]; $megjegyzes = $row["MEGJEGYZES"]; ?>
                         <?php }
                         $views=$views+1;
                         $q = "UPDATE VIDEOK SET MEGTEKINTESEK_SZAMA='$views' WHERE LINK='$vidi'";
@@ -185,12 +197,27 @@ window.onclick = function(event) {
 					</div>
 					<p id="felhaszn-megjegyzes" onclick="megjelen(this)">Több</p>
 					<div class="usermegjegyzes" id="usermegjegyzes">
-					
-						
-						<h1>Ide kell t</h1>
-						<h1>Feltöltő</h1>
-						<h1>megjegyzése</h1>
+                        <div id="tabs">
+                            <ul>
+                                <li><a href="#tabs-1" style="background: #4CAF50;">Részletek</a></li>
+                                <?php if($_SESSION["user"][0] == $usern){ ?>
+                                <li><a href="#tabs-2" style="background: #4CAF50;">Megjegyzés módosítása</a></li>
+                                <?php } ?>
+                            </ul>
+                            <div id="tabs-1">
+                                <h1><?php echo $megjegyzes; ?></h1>
+                            </div>
+                            <?php if($_SESSION["user"][0] == $usern){ ?>
+                            <div id="tabs-2">
+                                <form method="post">
+                                    <input type="text" name="text" placeholder="Ide írd a megjegyzést.">
+                                    <input type="hidden" name="link" value="<?php echo $vidi; ?>">
+                                    <button type="submit" name="megjegyzes">Módosít</button>
+                                </form>
+                            </div>
+                            <?php } ?>
 					</div>
+                    </div>
                     <hr id="hr6">
                 </div>
             </div>
