@@ -156,17 +156,21 @@ button:hover {
     width: 100%;
 }
 
-.logoutbutton {
-	
-	background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border:none;
-    cursor: pointer;
-	display:inline-block;
+.logoutbutton3 {
+	position:fixed;
+	z-index:3;
+	top:24px;
+	right:50px;
+}
+
+.logoutbutton4 {
+	position:fixed;
+	z-index:3;
+	top:24px;
+	right:140px;
 	
 }
+
 
 .cancelbtn {
   padding: 14px 20px;

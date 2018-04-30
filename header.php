@@ -74,15 +74,15 @@
                     $fioknev = $_SESSION["user"][0];
 					if ($fioknev == 'admin') {
                     ?>
-                    <button class="logoutbutton"><a href="adminpanel.php">AdminPanel</a></button>
+                    <button class="logoutbutton4"><a href="adminpanel.php">AdminPanel</a></button>
 					<form action="index.php" method="post">
-                    <button type="submit" name="logout_button" class="logoutbutton" style="width:auto; display: block">Log Out</button>
+                    <button type="submit" name="logout_button" class="logoutbutton3" style="width:auto; display: block">Log Out</button>
                     </form>
                 <?php } else { ?>
 				
-					<button class="logoutbutton"><a href="user.php?id=<?php echo $fioknev; ?>">Fiókom</a></button>
+					<button class="logoutbutton4"><a href="user.php?id=<?php echo $fioknev; ?>">Fiókom</a></button>
                     <form action="index.php" method="post">
-                    <button type="submit" name="logout_button" class="logoutbutton" style="width:auto; display: block">Log Out</button>
+                    <button type="submit" name="logout_button" class="logoutbutton3" style="width:auto; display: block">Log Out</button>
                     </form>
 				
 				 <?php } 
