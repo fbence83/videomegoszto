@@ -35,16 +35,12 @@ if(isset($_POST["kommentel"])){
 	$videolink = $_POST["linkes1"];
 	$usern = $_POST["user2"];
 	$komment= $_POST["komment"];
-	$date = date("Y-m-d");	
-	$q = "INSERT INTO HOZZASZOLASOK VALUES('$videolink', '$usern', TO_DATE('$date', 'YY-MM-DD'), '$komment')";
+	$date = date("Y-m-d h:i:s");	
+	echo $date;
+	$q = "INSERT INTO HOZZASZOLASOK VALUES('$videolink', '$usern', TO_DATE('$date', 'YY-MM-DD HH24:MI:SS'), '$komment')";
 	$stmt = oci_parse($conn, $q);
-    oci_execute($stmt);
-	
-	
-	
+    oci_execute($stmt);		
 }
-
-
 
 
 //komment törlés
@@ -53,8 +49,10 @@ if(isset($_POST["delete_comment"])){
     $user = $_SESSION["user"][0];
     $link = $_POST["link"];
     $date = $_POST["date"];
-
-    $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR='$date' AND KOMMENT='$comment'";
+	
+	
+  
+	$q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR=TO_DATE('$date', 'dd-MON-yyyy hh24:mi:ss') AND KOMMENT='$comment'";
     $stmt = oci_parse($conn, $q);
     oci_execute($stmt);
 
@@ -67,7 +65,9 @@ if(isset($_POST["delete_comment_admin"])){
     $link = $_POST["link2"];
     $date = $_POST["date2"];
 
-    $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR='$date' AND KOMMENT='$comment'";
+	
+	
+    $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR=TO_DATE('$date', 'dd-MON-yyyy hh24:mi:ss') AND KOMMENT='$comment'";
     $stmt = oci_parse($conn, $q);
     oci_execute($stmt);
 
@@ -84,6 +84,8 @@ if(isset($_POST["megjegyzes"])){
 }
 
 ?>
+
+
 
 <script>
 function novel(){
@@ -135,7 +137,13 @@ window.onclick = function(event) {
                     oci_execute($stmt1);
                     $vidi = '';
                     $megjegyzes = '';
-
+					
+					$vidicimke = $row["LINK"];
+					
+					
+					
+					
+					
                     while ($row = oci_fetch_assoc($stmt1)){ ?>
                     <div class= "video8">
 						
@@ -149,11 +157,27 @@ window.onclick = function(event) {
 
                     </div>
                     <hr id = "hr5">
+					
+					
                     <div class ="cim8">
                         <h2><?php echo $row["CIM"]; ?></h2>
                         <h3 id ="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"];?> megtekintés</h3>
-
                     </div>
+					
+					<div class="tags">
+						
+						<?php
+						$stmt4 = oci_parse($conn,"Select cimke from cimkek where link = '$vidi'");
+                    oci_execute($stmt4);
+					while ($row3 = oci_fetch_assoc($stmt4)){ ?>	
+						<a href="lists.php?id=<?php   echo $row3["CIMKE"] ;      ?>"><?php   echo $row3["CIMKE"] ;      ?> </a>
+						
+					<?php } ?>
+					<?php oci_free_statement($stmt4); ?>
+					
+					</div>
+					
+					
                     <div class ="iconbar8">
 						<img src="img/default.png" id="kisavatar2" style="width:50px;height:50px;">
                         <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"]; ?>"><?php echo $row["FELHASZNALONEV"]; ?> </a>
@@ -178,15 +202,17 @@ window.onclick = function(event) {
                         }
 
                         //hozzászólás felviele db-be
-                        if(isset($_POST["submit"])){
+                        /*if(isset($_POST["submit"])){
                             $comment = $_POST["search3"];
-                            $date = date("Y-m-d");
+                            $date = date("Y-m-d h:i:s");
                             $user = $_SESSION["user"][0];
-                            $q = "INSERT INTO HOZZASZOLASOK (LINK, FELHASZNALONEV, MIKOR, KOMMENT) VALUES ('$vidi', '$user', TO_DATE('$date', 'YY-MM-DD'), '$comment')";
+							
+							echo $date;
+                            /*$q = "INSERT INTO HOZZASZOLASOK (LINK, FELHASZNALONEV, MIKOR, KOMMENT) VALUES ('$vidi', '$user', TO_DATE('$date', 'YY-MM-DD HH24:MI:SS'), '$comment')";
                             $stmt = oci_parse($conn, $q);
                             oci_execute($stmt);
 
-                        }
+                        }*/
 
                         ?>
 						
@@ -239,7 +265,7 @@ window.onclick = function(event) {
                         }
                     }
                     //listázzuk az összes hozzászólást
-                    $stmt2=oci_parse($conn, "select * from hozzaszolasok where link= '$vidi' order by mikor");
+                    $stmt2=oci_parse($conn, "select felhasznalonev, komment, link, TO_CHAR(MIKOR , 'dd-MON-yyyy hh24:mi:ss') as ido  from hozzaszolasok where link= '$vidi' order by mikor");
                     oci_execute($stmt2);
                     while ($row = oci_fetch_assoc($stmt2)){
                         ?>
@@ -248,13 +274,20 @@ window.onclick = function(event) {
                             <div class="feltolto-nev8">
 								<img src="img/default.png" id="kisavatar" style="width:50px;height:50px;">
                                 <a href ="user.php?id=<?php echo $row["FELHASZNALONEV"] ?>"><?php echo $row["FELHASZNALONEV"] ?></a>
-                                <p><?php echo $row["MIKOR"]?> </p>
+                                <p><?php 
+								echo ($row["IDO"]); $datestring = $row["IDO"];
+								?> </p>
+								
+								
+								
+								
+								
                             </div>
                             <div class = "komment">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p><?php echo $row["KOMMENT"] ?></p>
+                                            <p class="kommentenbelul"><?php echo $row["KOMMENT"] ?></p>
                                         </td>
                                         <td>
                                             <?php
@@ -262,11 +295,11 @@ window.onclick = function(event) {
                                                 foreach ($comments as $one) {
                                                     if($row["KOMMENT"] == $one["KOMMENT"]){
                                                         ?>
-                                                        <form action="" method="post">
+                                                        <form action="" method="post" id="komment2">
                                                             <input type="hidden" value="<?php echo $one["LINK"]; ?>" name="link">
-                                                            <input type="hidden" value="<?php echo $one["MIKOR"]; ?>" name="date">
+                                                            <input type="hidden" value="<?php echo $datestring; ?>" name="date">
                                                             <input type="hidden" value="<?php echo $one["KOMMENT"];?>" name="comment">
-                                                            <button type="submit" name="delete_comment">Törlés</button>
+                                                            <button type="submit" name="delete_comment" class="torlesgomb" id="button2">Törlés</button>
                                                         </form>
                                                         <?php
                                                     }
@@ -275,9 +308,9 @@ window.onclick = function(event) {
                                             <form action="" method="post">
                                                 <input type="hidden" value="<?php echo $row["FELHASZNALONEV"]; ?>" name="user2">
                                                 <input type="hidden" value="<?php echo $row["LINK"]; ?>" name="link2">
-                                                <input type="hidden" value="<?php echo $row["MIKOR"]; ?>" name="date2">
+                                                <input type="hidden" value="<?php echo $datestring; ?>" name="date2">
                                                 <input type="hidden" value="<?php echo $row["KOMMENT"];?>" name="comment2">
-												<button type="submit" name="delete_comment_admin">Törlés</button>
+												<button type="submit" name="delete_comment_admin" class="torlesgomb">Törlés</button>
                                             </form>
                                             <?php } ?>
                                         </td>
@@ -300,6 +333,45 @@ window.onclick = function(event) {
                     <?php } ?>
                 </div>
             </div>
+			
+			<div class="felhasznegyeb">
+			<hr class="elvalaszt">
+				<h2><?php echo $usern ?> egyéb videói</h2>
+			<hr class="elvalaszt">
+				<div class="feltoltoegyeb">
+				<?php	
+				$stmt4=oci_parse($conn, "select * from videok where felhasznalonev= '$usern' ");
+                oci_execute($stmt4);
+                while ($row = oci_fetch_assoc($stmt4)){
+                    ?>
+					<ul>
+					
+                    <li><div class="container3">
+                        <div class="videonak3">
+                            <?php $konvertal = konvertal($row["LINK"]); ?>
+                            <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+							<div class="tarto">
+                            <img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+							<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+							<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
+						</div>
+                        <div class="cim-es-adatok3">
+                            <h3 class="jah"><?php echo $row["CIM"] ?></h3>
+                            <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>" id ="felhaszn"><?php echo $row["FELHASZNALONEV"] ?> </a>
+							<p id=><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+                        </div>
+                    </div></li>
+					<ul>
+                    
+                <?php } ?>
+				
+				
+				</div>
+			</div>
+			
+			
+			
         </div>
         <div class="feltolto8">
             <h3 id="nah">Hasonlo Videok</h3>
