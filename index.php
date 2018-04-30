@@ -220,7 +220,8 @@ include('header.php');
 					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
 					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
 						</div>
-				</div></li>
+				</div>
+                    </li>
 				
 				<?php } 
 				oci_free_statement($stmt);
@@ -237,16 +238,21 @@ include('header.php');
 			<div class="ido">
 				<div class="more3">
 				<div class="sorok3" id = "havi">
-				<h2>Havonta</h2>
+				<h2>Az elmúlt egy hónapban történt</h2>
 				<div class="gridcontainer3">
 				<?php
-				
 
-				$stmt = oci_parse($conn,"Select * from videok where rownum < 9 order by FELTOLTES_IDEJE");
+                $currentdate = date("Y-m-d");
+                $date1 = str_replace('-', '/', $currentdate);
+                $olddate = date('Y-m-d',strtotime($date1 . "-1 months"));
+
+
+				$stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by FELTOLTES_IDEJE");
 				oci_execute($stmt);
 				
-				while ($row = oci_fetch_assoc($stmt)) {?>
-				
+				while ($row = oci_fetch_assoc($stmt)) {
+				    ?>
+
 				<div class="container3">
 					<div class="videonak3">
 					<div class="tarto">
@@ -276,12 +282,16 @@ include('header.php');
 			
 				<div class="more3">
 				<div class="sorok3" id="heti">
-				<h2>Heti</h2>
+				<h2>Az elmúlt egy hétben történt</h2>
 				<div class="gridcontainer3">
 				<?php
-				
 
-				$stmt = oci_parse($conn,"Select * from videok where rownum < 9 order by FELTOLTES_IDEJE");
+                $currentdate = date("Y-m-d");
+                $date1 = str_replace('-', '/', $currentdate);
+                $olddate = date('Y-m-d',strtotime($date1 . "-1 weeks"));
+
+
+                $stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by FELTOLTES_IDEJE");
 				oci_execute($stmt);
 				
 				while ($row = oci_fetch_assoc($stmt)) {?>
@@ -312,12 +322,15 @@ include('header.php');
 				</div>
 				<div class="more3">
 				<div class="sorok3" id="napi">
-				<h2>Napi</h2>
+				<h2>Az elmúlt 24 órában történt</h2>
 				<div class="gridcontainer3">
 				<?php
-				
 
-				$stmt = oci_parse($conn,"Select * from videok where rownum < 9 order by FELTOLTES_IDEJE");
+                $currentdate = date("Y-m-d");
+                $date1 = str_replace('-', '/', $currentdate);
+                $olddate = date('Y-m-d',strtotime($date1 . "-1 days"));
+
+                $stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by FELTOLTES_IDEJE");
 				oci_execute($stmt);
 				
 				while ($row = oci_fetch_assoc($stmt)) {?>
