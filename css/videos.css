@@ -213,10 +213,16 @@ form.megjegyzes button {
 
 .torlesgomb{
 	margin:0px;
+	margin-right:20px;
 	float:right;
 	display:inline;
 	
-	
+}
+
+.kommentenbelul {
+	display:inline;
+	margin:0px;
+		float:left;
 }
 
 .feltolto-nev8 a {
@@ -249,7 +255,7 @@ form.megjegyzes button {
 .komment {
 	
 	margin:0px;
-	display:inline-block;	
+	display:flex;	
 	padding:8px 8px 0px 8px;
 	
 }
@@ -394,4 +400,39 @@ form.megjegyzes button {
 .close:hover,
 .close:focus {
   cursor: pointer;
+}
+
+.tags {
+	margin-right:10%;
+	text-align:right;
+	
+}
+
+.tags a {
+	text-decoration:none;
+	font-family:arial;
+	font-weight:bold;
+	color:black;
+	padding-right:5px;
+	padding-left:5px;
+	display:inline-block;
+}
+
+
+.feltoltoegyeb ul li{
+	float:left;
+	list-style:none;
+}
+
+.felhasznegyeb {
+	text-align:center;
+	margin-top:20px;
+}
+
+.felhasznegyeb h2 {
+	font-family:arial;
+	margin-left:10%;
+}
+.elvalaszt {
+	width:90%;
 }
