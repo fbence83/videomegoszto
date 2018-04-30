@@ -3,6 +3,7 @@ session_name("video");
 
 $nev = $_GET['id'];
 include('functions.php');
+if (isset($_SESSION["user"])){
 if ($_SESSION["user"][0] == "admin") {
     $_SESSION["admin"] = true;
 }
@@ -15,6 +16,7 @@ if(($nev == "admin") && ($_SESSION["user"][0] != "admin")){
 if($_SESSION["user"][0] == "admin"){
     header("Location: adminpanel.php");
     exit();
+	}
 }
 include('header.php');
 
@@ -55,7 +57,9 @@ if(isset($_POST["del"])){
                     <div class="videonak10">
 						<?php $konvertal = konvertal($row["LINK"]);  $felugrolink=$row["LINK"]?>
                         <div class="tarto">
-                        <img src="<?php echo $konvertal ?>" onclick="document.getElementById('felugrik').style.display='block'" style="width460px;height:345px;">
+						<a href="videos.php?id=<?php echo $row["CIM"] ?>">
+                        <img src="<?php echo $konvertal ?>" onclick="document.getElementById('felugrik').style.display='block'" style="width460px;height:345px;"></a>
+						<a href="videos.php?id=<?php echo $row["CIM"] ?>">
 						<img src="img/playicon.jpg" class="btn30" onclick="document.getElementById('felugrik').style.display='block'" style="width:80px; height:80px;"></a>
 						</div><?php
                         $views = $row["MEGTEKINTESEK_SZAMA"];
@@ -103,7 +107,6 @@ if(isset($_POST["del"])){
                 <hr>
                 <a href="userdatas.php?id=<?php echo $nev; ?>">Adatok</a>
                 <hr>	
-				<a href="#" onclick="document.getElementById('elozmeny').style.display='block'; " >Előzmények</a>
 				<?php
 						}
 					} else {
@@ -112,14 +115,13 @@ if(isset($_POST["del"])){
                 <hr>
                 <a href="playlist.php?id=<?php echo $nev; ?>">Lejátszási listák</a>
                 <hr>
-				<a href="#" onclick="document.getElementById('elozmeny').style.display='block'; " >Előzmények</a>
 					<?php } ?>
             </div>
         </div>
 		<div class="Videoi1" id="video1">
         <div class="Videoi">
-            <h2>Videói</h2>
-			<img src = "img/bezaricon.png" onclick ="document.getElementById('video1').style.display='none';" style="height:30px;width:30px;">
+            <h2 class="h2bal">Videói</h2>
+			<img src = "img/bezaricon.png" onclick ="document.getElementById('video1').style.display='none';" style="height:30px;width:30px;" class="legyelbaloldal">
         </div>
         <div class = "gridcontainer">
             <?php
@@ -146,11 +148,14 @@ if(isset($_POST["del"])){
                         <h3><?php echo $row["CIM"]; ?></h3>
                         <a href="user.php?id=<?php echo $row["FELHASZNALONEV"]; ?> "><?php echo $row["FELHASZNALONEV"]; ?></a>
 						<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
-                        <?php if($_SESSION["user"][0] == $nev){ ?>
+                        <?php
+						if (isset($_SESSION["user"])){
+						if($_SESSION["user"][0] == $nev){ ?>
                         <form method="post">
-                            <button type="submit" value="<?php echo $link; ?>" name="del">X</button>
+                            <button class="videotorol" type="submit" value="<?php echo $link; ?>" name="del">Törlés</button>
                         </form>
-                        <?php } ?>
+                        <?php }
+						} ?>
                     </div>
                 </div>
             <?php }
@@ -161,8 +166,8 @@ if(isset($_POST["del"])){
 		</div>
 		<div class="elozmenyek" id ="elozmeny">
 		<div class="Videoi">
-            <h2>Előzmények</h2>
-			<img src = "img/bezaricon.png" onclick ="document.getElementById('video1').style.display='none';" style="height:30px;width:30px;">
+            <h2 class="h2bal">Előzmények</h2>
+			<img src = "img/bezaricon.png" onclick ="document.getElementById('elozmeny').style.display='none';" style="height:30px;width:30px;" class="legyelbaloldal">
         </div>
         <div class = "gridcontainer6">
             <?php
