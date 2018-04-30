@@ -189,10 +189,51 @@ include('header.php');
 							<?php } ?>
 							</div>
 						</div>
+			<div class="legfrissebb">
+				<div class="sorok4" id = "havi">
+				<h2>Legújabb videók</h2>
+				<div class="listcontainer">
+				<ul>
+				<?php
+				
 
-
-
-
+				$stmt = oci_parse($conn,"Select * from videok where rownum < 9 order by FELTOLTES_IDEJE ASC");
+				oci_execute($stmt);
+				
+				while ($row = oci_fetch_assoc($stmt)) {?>
+				
+				<li>
+				<div class="container3">
+					<div class="videonak3">
+					<div class="tarto">
+						<?php $konvertal = konvertal($row["LINK"]); ?>
+					</div>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<div class="tarto">
+						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
+					 </div>
+					<div class="cim-es-adatok3">
+					<h3><?php echo $row["CIM"] ?></h3>
+					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
+					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+						</div>
+				</div></li>
+				
+				<?php } 
+				oci_free_statement($stmt);
+				?>
+				<ul>
+				</div>
+			</div>
+			
+			
+			</div>
+			
+			
+			
 			<div class="ido">
 				<div class="more3">
 				<div class="sorok3" id = "havi">
@@ -306,6 +347,59 @@ include('header.php');
 				<p class="moregomb" onclick="expand(3)" id = "3">Több</p>
 				</div>
 		</div>
+		
+		<div class="kategoriankent">
+				<?php
+				$stmt63 = oci_parse($conn,"select distinct kategoria from videok");
+				oci_execute($stmt63);
+				while ($row = oci_fetch_assoc($stmt63)) {?>	
+			
+				<?php $category = $row["KATEGORIA"]; ?>
+						
+				<div class="sorok3" id = "havi">
+				<h2><?php echo $category ?></h2>
+				<div class="gridcontainer3">
+				<?php
+				
+
+				$stmt = oci_parse($conn,"Select * from videok where kategoria = '$category' order by MEGTEKINTESEK_SZAMA DESC");
+				oci_execute($stmt);
+				
+				while ($row = oci_fetch_assoc($stmt)) {?>
+				
+				<div class="container3">
+					<div class="videonak3">
+					<div class="tarto">
+						<?php $konvertal = konvertal($row["LINK"]); ?>
+					</div>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<div class="tarto">
+						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
+					 </div>
+					<div class="cim-es-adatok3">
+					<h3><?php echo $row["CIM"] ?></h3>
+					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
+					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+						</div>
+				</div>
+				<?php } 
+				
+				oci_free_statement($stmt);
+				?>
+				</div>
+				</div>
+						
+			
+			
+			
+			
+			<?php } ?>
+			
+		</div>
+		
 		</div>
 	</div>
 	<?php

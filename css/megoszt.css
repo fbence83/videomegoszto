@@ -228,6 +228,34 @@
 	grid-row:gap:10px;
 	grid-template-columns:auto auto auto auto;	
 }
+
+.listcontainer {
+	
+}
+
+.sorok4 {
+	/
+	height:350px;
+	width:90%;
+	white-space:nowrap;
+	float:left;
+	/*background-color:;*/
+	padding:0 14 14 14px;
+	margin:5px;
+}
+
+.listcontainer  ul{
+	margin-left:
+	list-style-type:none;
+    white-space:nowrap;
+    overflow-x:auto;
+}
+
+.listcontainer  ul li{
+	
+	display:inline;
+}
+
 .more3 {
 	text-align:center;
 }
