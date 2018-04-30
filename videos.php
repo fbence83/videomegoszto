@@ -83,6 +83,27 @@ if(isset($_POST["megjegyzes"])){
     oci_execute($stmt);
 }
 
+//cimke hozzáadása a videóhoz
+if(isset($_POST["cimke_hozzaadas"])){
+    $cimke = $_POST["cimke"];
+    $vidi = $_POST["cimke_hozzaadas"];
+
+    $q = "INSERT INTO CIMKEK (LINK, CIMKE) VALUES ('$vidi', '$cimke')";
+    $stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+}
+
+//cimke törlése a videó alól
+if(isset($_POST["cimketorol"])){
+    $cimke = $_POST["cimketorol"];
+    $link = $_POST["link"];
+
+    $q = "DELETE FROM CIMKEK WHERE LINK='$link' AND CIMKE='$cimke'";
+    $stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+    
+}
+
 ?>
 
 
@@ -162,19 +183,18 @@ window.onclick = function(event) {
                     <div class ="cim8">
                         <h2><?php echo $row["CIM"]; ?></h2>
                         <h3 id ="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"];?> megtekintés</h3>
+                        <h5>Feltöltés ideje: <?php echo $row["FELTOLTES_IDEJE"]; ?></h5>
                     </div>
 					
 					<div class="tags">
-						
 						<?php
 						$stmt4 = oci_parse($conn,"Select cimke from cimkek where link = '$vidi'");
                     oci_execute($stmt4);
 					while ($row3 = oci_fetch_assoc($stmt4)){ ?>	
-						<a href="lists.php?id=<?php   echo $row3["CIMKE"] ;      ?>"><?php   echo $row3["CIMKE"] ;      ?> </a>
+						<a href="lists.php?id=<?php echo $row3["CIMKE"]; ?>"><?php echo $row3["CIMKE"]; ?></a>
 						
 					<?php } ?>
 					<?php oci_free_statement($stmt4); ?>
-					
 					</div>
 					
 					
@@ -228,6 +248,7 @@ window.onclick = function(event) {
                                 <li><a href="#tabs-1" style="background: #4CAF50;">Részletek</a></li>
                                 <?php if($_SESSION["user"][0] == $usern){ ?>
                                 <li><a href="#tabs-2" style="background: #4CAF50;">Megjegyzés módosítása</a></li>
+                                <li><a href="#tabs-3" style="background: #4CAF50;">Címkék</a></li>
                                 <?php } ?>
                             </ul>
                             <div id="tabs-1">
@@ -240,6 +261,31 @@ window.onclick = function(event) {
                                     <input type="hidden" name="link" value="<?php echo $vidi; ?>">
                                     <button type="submit" name="megjegyzes">Módosít</button>
                                 </form>
+                            </div>
+                            <div id="tabs-3">
+                                <div class="tags">
+                                    <?php
+                                    $stmt4 = oci_parse($conn,"Select cimke from cimkek where link = '$vidi'");
+                                    oci_execute($stmt4);
+                                    while ($row3 = oci_fetch_assoc($stmt4)){ ?>
+                                        <table>
+                                            <tr>
+                                                <td><?php echo $row3["CIMKE"]; ?></td>
+                                                <td><form action="" method="post">
+                                                        <input type="hidden" name="link" value="<?php echo $vidi; ?>">
+                                                        <button type="submit" value="<?php echo $row3["CIMKE"]; ?>" name="cimketorol">X</button>
+                                                    </form></td>
+                                            </tr>
+                                        </table>
+                                    <?php } ?>
+                                    <?php oci_free_statement($stmt4); ?>
+                                </div>
+                                <div class="addcimke">
+                                    <form action="" method="post">
+                                        <input type="text" name="cimke" placeholder="Címke hozzáadása">
+                                        <button type="submit" value="<?php echo $vidi; ?>" name="cimke_hozzaadas">Hozzáad</button>
+                                    </form>
+                                </div>
                             </div>
                             <?php } ?>
 					</div>
