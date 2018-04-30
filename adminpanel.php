@@ -106,7 +106,7 @@ if(isset($_POST["delete_video"])){
                             $link = $row["LINK"];
                             ?>
                         <div class="sor">
-                            <div class="videonak3">
+                            <div class="videonak13">
                                 <?php $konvertal = konvertal($row["LINK"]); ?>
                                 <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
                                 <div class="tarto">
