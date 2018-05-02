@@ -5,14 +5,21 @@ include('functions.php');
 $uname = $_GET["id"];
 
 if (isset($_POST["itemdelete"])){
-	echo 'fasza';
 	$vidi = $_POST["link"];
 	$name = $uname;
 	$lista = $_POST["list"];
 	$q = "DELETE from ListabanVan where link = '$vidi' and felhasznalonev  ='$name' and lista_neve = '$lista'";
 	$stmt = oci_parse($conn, $q);
     oci_execute($stmt);
-	echo 'fasza';
+	
+}
+
+if (isset($_POST["listdelete"])){
+	$lista = $_POST["list"];
+	$q = "DELETE from ListabanVan where lista_neve = '$lista'";
+	$stmt = oci_parse($conn, $q);
+    oci_execute($stmt);
+	
 }
 
 
@@ -37,6 +44,17 @@ if (isset($_POST["itemdelete"])){
 					<div class="bal">
 						<div class="listanev">
 							<h2>Lista neve: <?php echo $row["LISTA_NEVE"]; $list = $row["LISTA_NEVE"] ?> </h2>
+							
+							<?php if(isset($_SESSION["user"])){
+										if ($_SESSION["user"][0] == $uname){
+									?>
+							<form action="" method="post">
+                                        <input type="hidden" value="<?php echo $list;?>" name="list">
+										<button class="listdeletebtn" type="submit" name="listdelete">Lista törlése</i></button>
+										</form>
+										
+							<?php  } }?>
+							
 							<hr id ="listhr">
 						</div>
 						<div class="listanak">
@@ -86,7 +104,9 @@ if (isset($_POST["itemdelete"])){
 										</form>
 										
 									</div>
-									<?php } ?>
+										<?php }
+									}
+									?>
 									<div class="bal1">
 									<a href="videos.php?id=<?php echo $vid ?>">
 									<?php $thumbnail = konvertal($vid); ?>
@@ -112,7 +132,7 @@ if (isset($_POST["itemdelete"])){
 								</li>
 							</ul>
 
-						<?php }
+						<?php 
 							}
 						?>
 					</div>
