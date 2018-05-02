@@ -183,10 +183,12 @@ window.onclick = function(event) {
                     <div class ="cim8">
                         <h2><?php echo $row["CIM"]; ?></h2>
                         <h3 id ="megtekint"><?php echo $row["MEGTEKINTESEK_SZAMA"];?> megtekintés</h3>
-                        <h5>Feltöltés ideje: <?php echo $row["FELTOLTES_IDEJE"]; ?></h5>
+                        
+						
                     </div>
 					
 					<div class="tags">
+					<h5>Feltöltés ideje: <?php echo $row["FELTOLTES_IDEJE"]; ?></h5>
 						<?php
 						$stmt4 = oci_parse($conn,"Select cimke from cimkek where link = '$vidi'");
                     oci_execute($stmt4);
