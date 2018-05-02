@@ -191,7 +191,7 @@ include('header.php');
 						</div>
 			<div class="legfrissebb">
 				<div class="sorok4" id = "havi">
-				<h2>Legújabb videók</h2>
+				<h2 class="focim">Nemrég feltöltött</h2>
 				<div class="listcontainer">
 				<ul>
 				<?php
@@ -232,6 +232,69 @@ include('header.php');
 			
 			
 			</div>
+			
+			
+			<?php if(isset($_SESSION["user"])){
+				if ($_SESSION["user"][0] != 'admin') {
+			?>
+			<h2 class="focim">Neked ajánlott</h2>
+			<div class="ajanlasok">
+				
+				<?php 
+				$felhaszn = $_SESSION["user"][0];
+				$stmt = oci_parse($conn,"select COUNT(kategoria), kategoria from 
+				(select * from videok left outer join megtekint ON videok.link = megtekint.link 
+				where megtekint.FELHASZNALONEV = '$felhaszn' order by megtekint.MEGTEKINTES_IDEJE DESC) where rownum < 50 group by kategoria order by COUNT(kategoria) DESC");
+				oci_execute($stmt);
+				
+				while ($row = oci_fetch_assoc($stmt)) {
+				    ?>
+					
+					
+				
+				<div class="sorok3">
+				<h2><?php echo $row["KATEGORIA"]; $cat = $row["KATEGORIA"] ?></h2>
+				<div class="gridcontainer3">
+				<?php
+
+				$stmt2 = oci_parse($conn,"Select * from videok where kategoria = '$cat' and rownum < 5");
+				oci_execute($stmt2);
+				
+				while ($row1= oci_fetch_assoc($stmt2)) {
+				    ?>
+
+				<div class="container3">
+					<div class="videonak3">
+					<div class="tarto">
+						<?php $konvertal = konvertal($row1["LINK"]); ?>
+					</div>
+						<a href = "videos.php?id=<?php echo $row1["CIM"] ?>">
+						<div class="tarto">
+						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+						<a href = "videos.php?id=<?php echo $row1["CIM"] ?>">
+						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+						</div>
+					 </div>
+					<div class="cim-es-adatok3">
+					<h3><?php echo $row1["CIM"] ?></h3>
+					<a href="user.php?id=<?php echo $row1["FELHASZNALONEV"] ?> "><?php echo $row1["FELHASZNALONEV"] ?></a>
+					<p><?php echo $row1["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+						</div>
+				</div>
+				<?php } 
+				
+				oci_free_statement($stmt2);
+				?>
+				</div>
+				</div>
+				<?php }?>
+			
+			
+			
+			</div>
+			<hr>
+				<?php }
+						} ?>
 			
 			
 			
@@ -361,9 +424,11 @@ include('header.php');
 				</div>
 		</div>
 		
+		
+		<h2 class="focim">Mostanában menő</h2>
 		<div class="kategoriankent">
 				<?php
-				$stmt63 = oci_parse($conn,"select distinct kategoria from videok");
+				$stmt63 = oci_parse($conn,"select * from(select sum(megtekintesek_szama), kategoria from videok group by kategoria order by sum(megtekintesek_szama) DESC) where rownum < 5");
 				oci_execute($stmt63);
 				while ($row = oci_fetch_assoc($stmt63)) {?>	
 			
