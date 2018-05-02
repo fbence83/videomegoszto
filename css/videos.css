@@ -82,6 +82,14 @@
 	padding-right:20px;
 	float:right;
 }
+
+.tags h5 {
+	margin-left:10%;
+	text-align:left;
+	padding-right:270px;
+	display:inline-block;
+	
+}
 #megtekint {
 	font-family:arial;
 	font-weight:normal;
@@ -405,6 +413,7 @@ form.megjegyzes button {
 .tags {
 	margin-right:10%;
 	text-align:right;
+	height:50px;
 	
 }
 
@@ -436,3 +445,8 @@ form.megjegyzes button {
 .elvalaszt {
 	width:90%;
 }
+
+.tags button {
+    float:right;
+}
+

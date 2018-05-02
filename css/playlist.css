@@ -95,12 +95,24 @@ hr {
 	padding:20px 20px 0px 20px;
 	
 }
+
+
 .listanev h2{
-	padding:10px;
+	
+	
+	float:left;
+	margin-top:0;
 	padding-left:30px;
 	font-family:arial;
 	font-weight:bold;
 	font-size:24px;
+}
+
+.listanev button {
+	float:right;
+	margin-right:50px;
+	
+	
 }
 
 .bal img {
