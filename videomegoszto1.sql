@@ -68,7 +68,33 @@ INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=1FC3ve0c8oo', 'Battle
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=ugHJMnI_C_E', 'Msfvenom Metasploit Minute', 'IT', '17-FEB-2017', 5670, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'Adatbgyak01');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=RXHN0sGbXfw', 'Independece Day 2 Trailer', 'Trailer', '24-DEC-2017', 4421, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'Beluska1995');
 INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=_qX2_D84r3Y', 'Bosszúállók: Végtelen háború (12E) - hivatalos szinkronizált előzetes 2', 'Trailer', '08-JAN-2018', 174022, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'KovacsBela02');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=aar7SU8sf9w', 'Total War Warhammer tilea Campaign', 'Gameplay', '08-MAY-2018', 17422, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'Beluska1995');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=BtgrLqRZ3DM', 'Total War Thrones of Britania', 'Gameplay', '28-APR-2018', 64118, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'Beluska1995');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=jPEYpryMp2s', 'Solo: A Star Wars Story Trailer', 'Trailer', '03-MAY-2018', 17402212, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'Somebody34');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=vPBIr79rx4A', 'Harry Potter 9', 'Trailer', '13-APR-2018', 3121732, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', '2good4you');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=05cswnUFRJc', 'Dance off', 'Fun', '09-MAY-2018', 18422, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', '3l3m3r63');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=ZmInkxbvlCs', 'Tis But a Scratch', 'Fun', '30-APR-2018', 314282, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'KovacsBela1');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=TnOdAT6H94s', 'Vérnyúl', 'FUN', '18-APR-2018', 8174022, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'xxxnoscopeyyy');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=kx_G2a2hL6U', 'Biggus Dickus', 'Fun', '23-APR-2018', 374897, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', '1984Kati');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=FPbTWDeqQf0', 'MEDIEVAL COMBAT WORLD CHAMPIONSHIPS MALBORK 2015 POLAND VS USA', 'History', '28-APR-2018', 174022, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'Beluska1995');
+INSERT INTO Videok VALUES('https://www.youtube.com/watch?v=twqM56f_cVo', 'Parov Stelar - Catgroove (TSC - Forsythe)', 'Dance', '08-May-2018', 84022, 'Ide kerül a feltöltő megjegyzése. Alapértelmezetten ez a szöveg jelenik meg.', 'KovacsBela02');
 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 ALTER SESSION SET NLS_DATE_LANGUAGE = ENGLISH;
 ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-YYYY HH24:MI:SS';
