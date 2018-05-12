@@ -4,13 +4,13 @@ include ("dao.php");
 
 $stmt = oci_parse($conn, "Select cim from videok");
 oci_execute($stmt);
-// get the q parameter from URL
 $q = $_GET["q"];
 $hint = "";
 
 
 
-// lookup all hints from array if $q is different from "" 
+
+
 if ($q !== "") {
     $q = strtolower($q);
     $len=strlen($q);
@@ -25,6 +25,6 @@ if ($q !== "") {
     }
 }
 
-// Output "no suggestion" if no hint was found or output correct values 
+ 
 echo $hint === "" ? "Nincs találat" : $hint;
 ?>
