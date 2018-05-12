@@ -18,7 +18,7 @@ if(isset($_POST["list_button"])){
 	$q = "INSERT INTO ListabanVan VALUES('$videolink', '$usern', '$listnev')";
 	$stmt = oci_parse($conn, $q);
     oci_execute($stmt);
-	
+	oci_free_statement($stmt);
 }
 
 if(isset($_POST["list_button1"])){
@@ -28,7 +28,7 @@ if(isset($_POST["list_button1"])){
 	$q = "INSERT INTO ListabanVan VALUES('$videolink', '$usern', '$listnev')";
 	$stmt = oci_parse($conn, $q);
     oci_execute($stmt);
-
+	oci_free_statement($stmt);
 }
 
 if(isset($_POST["kommentel"])){
@@ -39,7 +39,8 @@ if(isset($_POST["kommentel"])){
 	echo $date;
 	$q = "INSERT INTO HOZZASZOLASOK VALUES('$videolink', '$usern', TO_DATE('$date', 'YY-MM-DD HH24:MI:SS'), '$komment')";
 	$stmt = oci_parse($conn, $q);
-    oci_execute($stmt);		
+    oci_execute($stmt);	
+	oci_free_statement($stmt);	
 }
 
 
@@ -55,6 +56,7 @@ if(isset($_POST["delete_comment"])){
 	$q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR=TO_DATE('$date', 'dd-MON-yyyy hh24:mi:ss') AND KOMMENT='$comment'";
     $stmt = oci_parse($conn, $q);
     oci_execute($stmt);
+	oci_free_statement($stmt);
 
 }
 
@@ -70,7 +72,7 @@ if(isset($_POST["delete_comment_admin"])){
     $q = "DELETE FROM HOZZASZOLASOK WHERE LINK='$link' AND FELHASZNALONEV='$user' AND MIKOR=TO_DATE('$date', 'dd-MON-yyyy hh24:mi:ss') AND KOMMENT='$comment'";
     $stmt = oci_parse($conn, $q);
     oci_execute($stmt);
-
+	oci_free_statement($stmt);
 }
 
 //megjegyzés változtatása a videó alatt
@@ -81,6 +83,7 @@ if(isset($_POST["megjegyzes"])){
     $q = "UPDATE VIDEOK SET MEGJEGYZES='$text' WHERE LINK='$link'";
     $stmt = oci_parse($conn, $q);
     oci_execute($stmt);
+	oci_free_statement($stmt);
 }
 
 //cimke hozzáadása a videóhoz
@@ -91,6 +94,7 @@ if(isset($_POST["cimke_hozzaadas"])){
     $q = "INSERT INTO CIMKEK (LINK, CIMKE) VALUES ('$vidi', '$cimke')";
     $stmt = oci_parse($conn, $q);
     oci_execute($stmt);
+	oci_free_statement($stmt);
 }
 
 //cimke törlése a videó alól
@@ -214,27 +218,12 @@ window.onclick = function(event) {
                             $username = $_SESSION["user"][0];
                             $date = date("Y-m-d h:i:s");
 							
-							/*$date = date("Y-m-d");	
-							$q = "INSERT INTO HOZZASZOLASOK VALUES('$videolink', '$usern', TO_DATE('$date', 'YY-MM-DD'), '$komment')";*/
+							
 							
                             $q2 = "INSERT INTO MEGTEKINT (LINK, FELHASZNALONEV, MEGTEKINTES_IDEJE) VALUES ('$vidi', '$username', TO_DATE('$date', 'YY-MM-DD HH24:MI:SS'))";
-                            /*var_dump($q2);*/
                             $stmt2 = oci_parse($conn, $q2);
                             oci_execute($stmt2);
                         }
-
-                        //hozzászólás felviele db-be
-                        /*if(isset($_POST["submit"])){
-                            $comment = $_POST["search3"];
-                            $date = date("Y-m-d h:i:s");
-                            $user = $_SESSION["user"][0];
-							
-							echo $date;
-                            /*$q = "INSERT INTO HOZZASZOLASOK (LINK, FELHASZNALONEV, MIKOR, KOMMENT) VALUES ('$vidi', '$user', TO_DATE('$date', 'YY-MM-DD HH24:MI:SS'), '$comment')";
-                            $stmt = oci_parse($conn, $q);
-                            oci_execute($stmt);
-
-                        }*/
 
                         ?>
 						
@@ -386,15 +375,16 @@ window.onclick = function(event) {
 			<hr class="elvalaszt">
 				<h2><?php echo $usern ?> egyéb videói</h2>
 			<hr class="elvalaszt">
-				<div class="feltoltoegyeb">
+				
 				<?php	
-				$stmt4=oci_parse($conn, "select * from videok where felhasznalonev= '$usern' ");
+				$stmt4=oci_parse($conn, "select * from videok where felhasznalonev= '$usern' and rownum < 9");
                 oci_execute($stmt4);
-                while ($row = oci_fetch_assoc($stmt4)){
-                    ?>
-					<ul>
+				
+                while ($row = oci_fetch_assoc($stmt4)){ ?>
+                    
 					
-                    <li><div class="container3">
+					
+                   <div class="container3">
                         <div class="videonak3">
                             <?php $konvertal = konvertal($row["LINK"]); ?>
                             <a href = "videos.php?id=<?php echo $row["CIM"] ?>">
@@ -409,13 +399,18 @@ window.onclick = function(event) {
                             <a href= "user.php?id=<?php echo $row["FELHASZNALONEV"] ?>" id ="felhaszn"><?php echo $row["FELHASZNALONEV"] ?> </a>
 							<p id=><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
                         </div>
-                    </div></li>
-					<ul>
+                    </div>
+					
+					<?php } 
+				
+					oci_free_statement($stmt);
+					?>
+					
                     
-                <?php } ?>
+               
 				
 				
-				</div>
+				
 			</div>
 			
 			
@@ -426,10 +421,39 @@ window.onclick = function(event) {
             <hr>
             <div class="hasonlo" id="01">
                 <?php
-                $stmt4=oci_parse($conn, "select * from videok where kategoria= '$kat' ");
+				
+				
+				$sql = 'BEGIN HASONLOHOZ.hasonlo(:keres, :keres_cursor); END;';
+
+				$stmt = oci_parse($conn, $sql);
+					$max_entries = $kat;
+					oci_bind_by_name($stmt,":keres",$max_entries,32);
+
+					$keres_cursor = oci_new_cursor($conn);
+					oci_bind_by_name($stmt,":keres_cursor",$keres_cursor,-1,OCI_B_CURSOR);
+
+					oci_execute($stmt);
+
+					oci_execute($keres_cursor);
+				
+				
+					while ($entry = oci_fetch_assoc($keres_cursor)) {
+					 $kell = $entry["LINK"]; 
+						$stmt2 = oci_parse($conn,"select * from videok where link = '$kell' ");
+							oci_execute($stmt2);
+				
+							while ($row = oci_fetch_assoc($stmt2)) {?>
+						
+	 
+						
+              <?php /* $stmt4=oci_parse($conn, "select * from videok where kategoria= '$kat' ");
                 oci_execute($stmt4);
-                while ($row = oci_fetch_assoc($stmt4)){
-                    ?>
+                while ($row = oci_fetch_assoc($stmt4)){*/ ?>
+					
+					
+					
+					
+                   
                     <div class="container3">
                         <div class="videonak3">
                             <?php $konvertal = konvertal($row["LINK"]); ?>
@@ -447,7 +471,7 @@ window.onclick = function(event) {
                         </div>
                     </div>
                     <hr>
-                <?php } ?>
+						<?php } } ?>
             </div>
             <hr>
             <p id="tobb" onclick="novel()" >Több</p>
@@ -465,16 +489,18 @@ window.onclick = function(event) {
 			<form action="videos.php" method ="POST">
 			<div class="myselect" style="width:200px;">
 			<select name="listname1">
-				<option value="0">Válassz listát:</option>
-			<?php
-			$stmt6=oci_parse($conn, "select distinct lista_neve from ListabanVan where felhasznalonev= '$user' ");
-                oci_execute($stmt6);
-                while ($row = oci_fetch_assoc($stmt6)){
-                    ?>
+				
+			<?php 
 			
-				<option value="<?php echo $row["LISTA_NEVE"] ?>"><?php echo $row["LISTA_NEVE"] ?></option>
-				<?php 
-				} ?>
+			$stmt6=oci_parse($conn, "select distinct lista_neve from ListabanVan where felhasznalonev= '$user' 
+									minus 
+									select lista_neve  from ListabanVan where felhasznalonev= '$user' and link = '$vidi'");
+                oci_execute($stmt6);
+				while ($row = oci_fetch_assoc($stmt6)){
+					?>
+					<option value="<?php echo $row["LISTA_NEVE"] ?>"><?php echo $row["LISTA_NEVE"] ?></option>
+				<?php  }  ?>
+			
 			</select>
 			<input type="hidden" value="<?php echo $vidi; ?>" name="linkes">
             <input type="hidden" value="<?php echo $user; ?>" name="user1">
