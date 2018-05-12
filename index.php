@@ -100,6 +100,7 @@ include('header.php');
     }
 </script>
 
+
 	<div class="oszlopok3">
 
     <?php include ("menu.php"); ?>
@@ -111,7 +112,7 @@ include('header.php');
 						<div class="legnezetebbvideo">
 						<h2 class="fejlec">Legnézettebb videó</h2>
 						<?php
-						$stmt = oci_parse($conn,"select * from (Select * from videok order by MEGTEKINTESEK_SZAMA desc)where rownum =1");
+						$stmt = oci_parse($conn,"select * from (Select * from videok order by MEGTEKINTESEK_SZAMA desc)where rownum <2");
 							oci_execute($stmt);
 				
 							while ($row = oci_fetch_assoc($stmt)) {?>
@@ -190,47 +191,61 @@ include('header.php');
 							</div>
 						</div>
 			<div class="legfrissebb">
-				<div class="sorok4" id = "havi">
+				<div class="sorok4">
 				<h2 class="focim">Nemrég feltöltött</h2>
-				<div class="listcontainer">
-				<ul>
+				<div class="slideshowcontainer">
+				
 				<?php
 				
 
-				$stmt = oci_parse($conn,"Select * from videok where rownum < 9 order by FELTOLTES_IDEJE ASC");
+				$stmt = oci_parse($conn,"Select * from videok where rownum < 13 order by FELTOLTES_IDEJE ASC");
 				oci_execute($stmt);
+				$j=0;
+				
 				
 				while ($row = oci_fetch_assoc($stmt)) {?>
+				<?php 
 				
-				<li>
-				<div class="container3">
-					<div class="videonak3">
-					<div class="tarto">
-						<?php $konvertal = konvertal($row["LINK"]); ?>
-					</div>
-						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+					if($j == 0 || $j ==4 || $j == 8){
+					?>
+					<div class="videofour fade">
+						<?php } ?>
+					<div class="container3">
+						<div class="videonak3">
 						<div class="tarto">
-						<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
-						<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
-						<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+							<?php $konvertal = konvertal($row["LINK"]); ?>
 						</div>
-					 </div>
-					<div class="cim-es-adatok3">
-					<h3><?php echo $row["CIM"] ?></h3>
-					<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
-					<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+							<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+							<div class="tarto">
+							<img src="<?php echo $konvertal ?>" style="width:264px;height:180px;"></a>
+							<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
+							<img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+							</div>
 						</div>
+						<div class="cim-es-adatok3">
+						<h3><?php echo $row["CIM"] ?></h3>
+						<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
+						<p><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
+							</div>
+					</div>
+					<?php
+					if ($j == 3 || $j == 7 ||$j == 12) { ?>
+					</div>
+					<?php } 
+					 $j++; 
+					?>   <?php 
+					 } 
+					oci_free_statement($stmt);
+					?>
+					</div>
+					
+					</div>
+					
+					
+					<a class="prev" onclick="plusSlides(-1)"><img src="img/rewind.png" style="width:40px; height:40px;" ></a>
+					<a class="next" onclick="plusSlides(1)"><img src="img/fast-forward.png" style="width:40px; height:40px;"></a>
+					
 				</div>
-                    </li>
-				
-				<?php } 
-				oci_free_statement($stmt);
-				?>
-				<ul>
-				</div>
-			</div>
-			
-			
 			</div>
 			
 			
@@ -310,7 +325,7 @@ include('header.php');
                 $olddate = date('Y-m-d',strtotime($date1 . "-1 months"));
 
 
-				$stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by FELTOLTES_IDEJE");
+				$stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by MEGTEKINTESEK_SZAMA DESC");
 				oci_execute($stmt);
 				
 				while ($row = oci_fetch_assoc($stmt)) {
@@ -340,7 +355,6 @@ include('header.php');
 				?>
 				</div>
 				</div>
-				<p class="moregomb" onclick="expand(1)" id = "1">Több</p>
 				</div>
 			
 				<div class="more3">
@@ -354,7 +368,7 @@ include('header.php');
                 $olddate = date('Y-m-d',strtotime($date1 . "-1 weeks"));
 
 
-                $stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by FELTOLTES_IDEJE");
+                $stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by MEGTEKINTESEK_SZAMA DESC");
 				oci_execute($stmt);
 				
 				while ($row = oci_fetch_assoc($stmt)) {?>
@@ -381,7 +395,6 @@ include('header.php');
 				?>
 				</div>
 				</div>
-				<p class="moregomb" onclick="expand(2)" id = "2">Több</p>
 				</div>
 				<div class="more3">
 				<div class="sorok3" id="napi">
@@ -393,7 +406,7 @@ include('header.php');
                 $date1 = str_replace('-', '/', $currentdate);
                 $olddate = date('Y-m-d',strtotime($date1 . "-1 days"));
 
-                $stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by FELTOLTES_IDEJE");
+                $stmt = oci_parse($conn,"Select * from videok where FELTOLTES_IDEJE between TO_DATE('$olddate', 'YY-MM-DD') and TO_DATE('$currentdate', 'YY-MM-DD') order by MEGTEKINTESEK_SZAMA DESC");
 				oci_execute($stmt);
 				
 				while ($row = oci_fetch_assoc($stmt)) {?>
@@ -420,7 +433,6 @@ include('header.php');
 				?>
 				</div>
 				</div>
-				<p class="moregomb" onclick="expand(3)" id = "3">Több</p>
 				</div>
 		</div>
 		
@@ -486,3 +498,26 @@ include('header.php');
 <?php
 include('footer.php');
 ?>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("videofour");
+  if (n > slides.length) {slideIndex = 1} 
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none"; 
+  }
+  slides[slideIndex-1].style.display = "block"; 
+}
+</script>
