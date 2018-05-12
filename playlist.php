@@ -107,20 +107,21 @@ if (isset($_POST["listdelete"])){
 										<?php }
 									}
 									?>
+									<?php	
+										$stmt3 = oci_parse($conn,"Select * from videok where link = '$vid'");
+										oci_execute($stmt3);
+										while ($row = oci_fetch_assoc($stmt3)) { ?>
 									<div class="bal1">
 									<a href="videos.php?id=<?php echo $vid ?>">
 									<?php $thumbnail = konvertal($vid); ?>
 									</a><div class="tarto">
 									<a href = "videos.php?id=<?php echo $row["CIM"] ?>">
 									<img src="<?php echo $thumbnail ?>" class="img-responsive" height="130px" /></a>
-									<a><img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
+									<a href = "videos.php?id=<?php echo $row["CIM"] ?>"><img src="img/playicon.jpg" class="btn30" style="width:40px; height:40px;"></a>
 									</div>
 									</div>
 									<div class="jobb1">
-										<?php	
-										$stmt3 = oci_parse($conn,"Select * from videok where link = '$vid'");
-										oci_execute($stmt3);
-										while ($row = oci_fetch_assoc($stmt3)) { ?>
+										
 											<p> <?php echo $row["CIM"]  ?> </p>
 											<a href="user.php?id=<?php echo $row["FELHASZNALONEV"] ?> "><?php echo $row["FELHASZNALONEV"] ?></a>
 											<p id="megtekintesekszama6"><?php echo $row["MEGTEKINTESEK_SZAMA"] ?> Megtekintés</p>
