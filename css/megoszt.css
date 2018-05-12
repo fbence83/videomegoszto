@@ -246,7 +246,7 @@
 .sorok4 {
 	/
 	height:350px;
-	width:90%;
+	width:100%;
 	white-space:nowrap;
 	float:left;
 	/*background-color:;*/
@@ -341,4 +341,71 @@
 .tarto:hover .btn30 {
 	opacity:1;
 	
+}
+.sorok4 {
+	margin-left:20px;
+}
+
+.videofour {
+	display:none;
+	
+}
+
+.slideshowcontainer{
+	
+	width:97%;
+	
+	position:relative;
+	
+}
+
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  z-index:0;
+  top: 103%;
+  width: auto;
+ 
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  opacity:0;
+}
+
+.next {
+  right: 1%;
+  border-radius: 3px 0 0 3px;
+}
+.prev {
+	left: 10%;
+}
+
+.sorok4:hover .prev {
+	opacity:1;
+}
+.sorok4:hover .next {
+	opacity:1;
+}
+
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.3s;
+  animation-name: fade;
+  animation-duration: 1.3s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .7} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .7} 
+  to {opacity: 1}
 }

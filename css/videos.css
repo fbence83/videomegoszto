@@ -411,26 +411,33 @@ form.megjegyzes button {
 }
 
 .tags {
+	
 	margin-right:10%;
-	text-align:right;
-	height:50px;
+	
+	
+}
+.tags h5 {
+	
+	
+	display:inline;
 	
 }
 
 .tags a {
+	float:right;
 	text-decoration:none;
 	font-family:arial;
 	font-weight:bold;
 	color:black;
 	padding-right:5px;
 	padding-left:5px;
-	display:inline-block;
+	display:inline;
 }
 
 
-.feltoltoegyeb ul li{
+.feltoltoegyeb {
 	float:left;
-	list-style:none;
+	
 }
 
 .felhasznegyeb {
